@@ -5,470 +5,458 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nikolas Escobal — Full-Stack Software Engineer</title>
     <style>
-        /* ATS-friendly: semantic HTML, no tables for layout, readable fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --primary: #0f172a;
-            --secondary: #334155;
-            --accent: #2563eb;
-            --accent-light: #dbeafe;
-            --border: #e2e8f0;
-            --bg: #ffffff;
-            --text: #1e293b;
-            --text-light: #64748b;
-            --success: #059669;
+            --ink: #1a1a2e;
+            --body: #3e3e4e;
+            --quiet: #76768a;
+            --accent: #6c3fc7;
+            --accent-mid: #8b6ad0;
+            --accent-soft: #f0ecfa;
+            --accent-wash: #f8f6fd;
+            --rule: #e0dde8;
+            --page: #fff;
+            --bg: #edecf2;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            color: var(--text);
+            font-family: 'Inter', -apple-system, sans-serif;
+            color: var(--body);
             background: var(--bg);
-            font-size: 11px;
-            line-height: 1.5;
+            font-size: 12.5px;
+            line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }
 
         .page {
             max-width: 8.5in;
-            min-height: 11in;
-            margin: 0 auto;
-            padding: 0.45in 0.5in;
+            margin: 40px auto;
+            background: var(--page);
+            box-shadow: 0 4px 30px rgba(108, 63, 199, 0.08), 0 1px 3px rgba(0,0,0,0.04);
+            overflow: hidden;
         }
 
         @media print {
             body { background: white; }
             .page {
-                padding: 0.35in 0.45in;
-                max-width: none;
-                min-height: auto;
+                margin: 0; max-width: none; box-shadow: none;
+                font-size: 11px;
             }
+            .footer { display: none; }
+            header { padding: 0.3in 0.5in; }
+            .body-content { padding: 0 0.5in 0.35in; }
+            .about-section { background: none !important; padding: 0 !important; margin-bottom: 14px !important; }
+            .about-section .about-inner { padding: 0; }
         }
 
         /* ===== HEADER ===== */
         header {
-            text-align: center;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--primary);
-            margin-bottom: 12px;
+            padding: 0.4in 0.7in 0.35in;
+            background: var(--ink);
+            color: #fff;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
         }
 
         h1 {
-            font-size: 24px;
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 36px;
             font-weight: 700;
-            color: var(--primary);
+            color: #fff;
             letter-spacing: -0.5px;
-            margin-bottom: 2px;
+            line-height: 1.1;
         }
 
-        .title-role {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 6px;
+        .subtitle {
+            font-size: 13px;
+            color: var(--accent-mid);
+            margin-top: 6px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
         }
 
-        .contact-row {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 4px 14px;
-            font-size: 10.5px;
-            color: var(--secondary);
+        .contact {
+            text-align: right;
+            font-size: 11.5px;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.8;
+            flex-shrink: 0;
         }
 
-        .contact-row a {
-            color: var(--accent);
+        .contact a {
+            color: rgba(255,255,255,0.85);
             text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
         }
 
-        .contact-row a:hover {
-            text-decoration: underline;
+        .contact a:hover {
+            color: #fff;
+            border-color: var(--accent-mid);
         }
 
-        .divider {
-            color: var(--border);
+        /* ===== ABOUT (full-width band) ===== */
+        .about-section {
+            background: var(--accent-wash);
+            padding: 22px 0.7in;
+            margin-bottom: 26px;
+            border-bottom: 1px solid var(--rule);
         }
 
-        /* ===== SECTIONS ===== */
+        .about {
+            font-size: 13px;
+            color: var(--body);
+            line-height: 1.7;
+            max-width: 64ch;
+        }
+
+        .about em {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-style: italic;
+            color: var(--ink);
+        }
+
+        /* ===== BODY ===== */
+        .body-content {
+            padding: 0 0.7in 0.5in;
+        }
+
         section {
-            margin-bottom: 9px;
+            margin-bottom: 26px;
+        }
+
+        section:last-of-type {
+            margin-bottom: 0;
         }
 
         h2 {
-            font-size: 11.5px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            color: var(--primary);
-            border-bottom: 1.5px solid var(--border);
-            padding-bottom: 3px;
-            margin-bottom: 7px;
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        /* ===== SUMMARY ===== */
-        .summary {
-            font-size: 10.5px;
-            color: var(--secondary);
-            line-height: 1.55;
+        h2::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--rule);
         }
 
         /* ===== SKILLS ===== */
-        .skills-grid {
+        .skills {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3px 20px;
-            font-size: 10.5px;
-        }
-
-        .skill-category {
-            display: flex;
-            gap: 6px;
+            grid-template-columns: auto 1fr;
+            gap: 6px 16px;
+            font-size: 12px;
+            background: var(--accent-wash);
+            padding: 14px 16px;
+            border-radius: 6px;
+            border: 1px solid var(--rule);
         }
 
         .skill-label {
             font-weight: 600;
-            color: var(--primary);
+            color: var(--accent);
             white-space: nowrap;
-            min-width: fit-content;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .skill-items {
-            color: var(--secondary);
+            color: var(--body);
         }
 
         /* ===== EXPERIENCE ===== */
-        .job {
-            margin-bottom: 7px;
+        .role {
+            margin-bottom: 20px;
+            padding-left: 16px;
+            border-left: 2px solid var(--accent-mid);
         }
 
-        .job:last-child {
+        .role:last-child {
             margin-bottom: 0;
         }
 
-        .job-header {
+        .role-top {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
+            flex-wrap: wrap;
+            gap: 4px 12px;
             margin-bottom: 1px;
         }
 
-        .job-title-line {
-            display: flex;
-            align-items: baseline;
-            gap: 6px;
+        .role-title {
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--ink);
         }
 
-        .job-title {
-            font-weight: 700;
+        .role-at {
+            font-weight: 400;
+            color: var(--quiet);
+        }
+
+        .role-at a {
+            color: var(--quiet);
+            text-decoration: none;
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .role-at a:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .role-dates {
             font-size: 11px;
-            color: var(--primary);
+            color: var(--quiet);
+            font-variant-numeric: tabular-nums;
         }
 
-        .job-company {
-            font-weight: 500;
-            color: var(--secondary);
-            font-size: 10.5px;
-        }
-
-        .job-meta {
-            font-size: 10px;
-            color: var(--text-light);
-            white-space: nowrap;
-        }
-
-        .job-location {
-            font-size: 10px;
-            color: var(--text-light);
-            margin-bottom: 3px;
+        .role-where {
+            font-size: 11px;
+            color: var(--quiet);
+            margin-bottom: 5px;
         }
 
         ul {
-            padding-left: 15px;
-            margin: 0;
+            padding-left: 16px;
         }
 
         li {
-            font-size: 10.5px;
-            color: var(--secondary);
-            margin-bottom: 1.5px;
-            line-height: 1.45;
+            font-size: 12px;
+            color: var(--body);
+            margin-bottom: 4px;
+            line-height: 1.55;
         }
 
         li::marker {
-            color: var(--accent);
+            color: var(--accent-mid);
         }
 
-        .highlight {
+        strong {
             font-weight: 600;
-            color: var(--primary);
+            color: var(--ink);
         }
 
-        /* ===== CERTIFICATIONS ===== */
-        .cert-grid {
+        /* ===== CERTS / EDUCATION ===== */
+        .two-col {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4px 12px;
+            gap: 6px 24px;
         }
 
-        .cert-item {
-            font-size: 10.5px;
-        }
-
-        .cert-name {
+        .cert-name, .edu-school {
             font-weight: 600;
-            color: var(--primary);
+            color: var(--ink);
+            font-size: 12px;
         }
 
         .cert-org {
-            color: var(--text-light);
-            font-size: 10px;
+            color: var(--quiet);
+            font-size: 11px;
         }
 
-        /* ===== EDUCATION ===== */
-        .edu-item {
+        .edu-row {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 2px;
-        }
-
-        .edu-school {
-            font-weight: 600;
-            color: var(--primary);
-            font-size: 10.5px;
+            margin-bottom: 3px;
         }
 
         .edu-degree {
-            color: var(--secondary);
-            font-size: 10.5px;
+            color: var(--body);
+            font-size: 12px;
         }
 
         .edu-date {
-            font-size: 10px;
-            color: var(--text-light);
-        }
-
-        /* ===== PROJECTS ===== */
-        .project {
-            margin-bottom: 6px;
-        }
-
-        .project:last-child {
-            margin-bottom: 0;
-        }
-
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-        }
-
-        .project-name {
-            font-weight: 700;
             font-size: 11px;
-            color: var(--primary);
+            color: var(--quiet);
         }
 
-        .project-tech {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 9px;
-            color: var(--accent);
-            background: var(--accent-light);
-            padding: 1px 6px;
-            border-radius: 3px;
+        /* ===== BEYOND THE CODE ===== */
+        .additional {
+            font-size: 12.5px;
+            color: var(--body);
+            line-height: 1.7;
         }
 
-        .project-desc {
-            font-size: 10.5px;
-            color: var(--secondary);
-            margin-top: 1px;
+        /* ===== FOOTER ===== */
+        .footer {
+            margin-top: 24px;
+            padding-top: 12px;
+            border-top: 1px solid var(--rule);
+            font-size: 10px;
+            color: var(--quiet);
+            text-align: right;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
     <div class="page">
-        <!-- HEADER -->
         <header>
-            <h1>Nikolas Escobal</h1>
-            <div class="title-role">Full-Stack Software Engineer</div>
-            <div class="contact-row">
-                <span>niko.escobal@gmail.com</span>
-                <span class="divider">|</span>
-                <a href="https://github.com/nikoescobal">github.com/nikoescobal</a>
-                <span class="divider">|</span>
-                <a href="https://linkedin.com/in/nikolas-escobal">linkedin.com/in/nikolas-escobal</a>
-                <span class="divider">|</span>
-                <span>Cebu, Philippines (Remote)</span>
+            <div class="header-top">
+                <div>
+                    <h1>Nikolas Escobal</h1>
+                    <div class="subtitle">Full-Stack Engineer · Product Thinker · Remote-First Builder</div>
+                </div>
+                <div class="contact">
+                    niko.escobal@gmail.com<br>
+                    <a href="https://github.com/nikoescobal">github.com/nikoescobal</a><br>
+                    <a href="https://linkedin.com/in/nikolas-escobal">linkedin.com/in/nikolas-escobal</a><br>
+                    Cebu, Philippines
+                </div>
             </div>
         </header>
 
-        <!-- SUMMARY -->
-        <section>
-            <h2>Summary</h2>
-            <p class="summary">
-                Full-stack engineer and product manager who thrives in remote, cross-functional teams. Known for blending the technical and non-technical sides of product development from inception to production. Hands-on experience co-founding tech startups, leading international dev teams, and shipping 40+ projects across front-end, back-end, and full-stack. Currently building enterprise platforms for hospitality clients using React, TypeScript, Node.js, and PostgreSQL.
+        <div class="about-section">
+            <p class="about">
+                Full-stack engineer with a product mindset. I've built software with cross-functional teams across Switzerland, Dubai, Singapore, and the US, all remotely from Cebu since day one. My background is unusual: I co-founded a startup, ran sales, managed products, then taught myself to code. That range is a feature, not a bug. Right now I'm deep into AI-assisted development. I build with tools like Claude Code daily, and I think the best engineering going forward is <em>AI-first</em>. I care about solving real problems, not stack wars.
             </p>
-        </section>
+        </div>
 
-        <!-- SKILLS -->
-        <section>
-            <h2>Technical Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <span class="skill-label">Frontend:</span>
-                    <span class="skill-items">React, TypeScript, JavaScript, Next.js, Tailwind CSS, Redux, Zustand, HTML5, CSS3</span>
+        <div class="body-content">
+            <section>
+                <h2>Skills</h2>
+                <div class="skills">
+                    <span class="skill-label">Frontend</span>
+                    <span class="skill-items">React, TypeScript, JavaScript, Next.js, Tailwind CSS, Redux, Zustand</span>
+                    <span class="skill-label">Backend</span>
+                    <span class="skill-items">Node.js, Python, Ruby on Rails, REST APIs, PostgreSQL, MySQL</span>
+                    <span class="skill-label">AI / LLM</span>
+                    <span class="skill-items">Claude Code, AI agent workflows, LLM integrations, prompt engineering, RAG</span>
+                    <span class="skill-label">Tools</span>
+                    <span class="skill-items">Git, Electron, Vercel, Docker, Vim, TDD, Agile</span>
+                    <span class="skill-label">Paradigms</span>
+                    <span class="skill-items">Clojure, Functional Programming, Immutable Data, REPL-Driven Development</span>
                 </div>
-                <div class="skill-category">
-                    <span class="skill-label">Backend:</span>
-                    <span class="skill-items">Node.js, Python, Ruby on Rails, REST APIs, PostgreSQL, MySQL, SQLite</span>
-                </div>
-                <div class="skill-category">
-                    <span class="skill-label">AI / LLM:</span>
-                    <span class="skill-items">Claude Code, AI agent workflows, LLM integrations, prompt engineering, RAG patterns</span>
-                </div>
-                <div class="skill-category">
-                    <span class="skill-label">Tools:</span>
-                    <span class="skill-items">Git, GitHub, Electron, Vercel, Netlify, Docker, Vim, TDD, Agile/Scrum</span>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- EXPERIENCE -->
-        <section>
-            <h2>Experience</h2>
+            <section>
+                <h2>Experience</h2>
 
-            <!-- Freelance / Current -->
-            <div class="job">
-                <div class="job-header">
-                    <div class="job-title-line">
-                        <span class="job-title">Full-Stack Software Engineer</span>
-                        <span class="job-company">— Freelance / Contract</span>
+                <div class="role">
+                    <div class="role-top">
+                        <div class="role-title">Full-Stack Software Engineer <span class="role-at">· Freelance / Contract</span></div>
+                        <span class="role-dates">Jun 2020 — Present</span>
                     </div>
-                    <span class="job-meta">Jun 2020 — Present</span>
+                    <div class="role-where">Remote · Multiple clients</div>
+                    <ul>
+                        <li>Building a <strong>call management platform</strong> for hospitality brands like Four Seasons: call QA scoring, analytics, and payment tracking. Designed a <strong>versioned scoring system</strong> in PostgreSQL so clients can update rubrics without breaking historical data, plus a billing engine handling multiple payment structures per client.</li>
+                        <li>Built a <strong>cross-platform Electron desktop app</strong> for a large US lodging company that automates timesheet logging and break premium calculations with offline-first data handling and analytics dashboards.</li>
+                        <li>Shipped <strong><a href="https://cafe-wifi-2lsrsu5u5-nikolas-escobals-projects.vercel.app/" style="color: inherit;">Remote Spot</a></strong>, a digital nomad directory, as a solo project. React, TypeScript, live and functional.</li>
+                        <li>Delivered 40+ projects across the stack for international teams. 95% success rate.</li>
+                    </ul>
                 </div>
-                <div class="job-location">Remote · Multiple enterprise clients</div>
-                <ul>
-                    <li>Building a <span class="highlight">hotel call management platform</span> for a client servicing Four Seasons and other major hospitality brands — handling call QA scoring, analytics, and payment tracking. Designed a <span class="highlight">versioned scoring criteria system</span> in PostgreSQL so clients can update rubrics without invalidating historical evaluations, and built a flexible billing engine supporting multiple payment structures per client (React, TypeScript, Node.js, PostgreSQL).</li>
-                    <li>Developed a <span class="highlight">cross-platform Electron desktop application</span> for a large US lodging company to automate timesheet logging and break premium calculations — built offline-first data handling, HR data format integration, and analytics dashboards that surface actionable insights from timesheet patterns, reducing manual HR processing time and improving compliance tracking.</li>
-                    <li>Shipped <span class="highlight"><a href="https://cafe-wifi-2lsrsu5u5-nikolas-escobals-projects.vercel.app/" style="color: inherit; text-decoration: none;">Remote Spot</a></span>, a digital nomad-friendly directory (Minimum Lovable Product) as a solo full-stack project — React, TypeScript, and modern API integrations — live and functional.</li>
-                    <li>Engineered 40+ front-end, back-end, and full-stack projects across diverse industries, leading international dev teams with a 95% project success rate.</li>
-                </ul>
-            </div>
 
-            <!-- HelpJuice -->
-            <div class="job">
-                <div class="job-header">
-                    <div class="job-title-line">
-                        <span class="job-title">Frontend Software Engineer</span>
-                        <span class="job-company">— <a href="https://helpjuice.com" style="color: inherit; text-decoration: none;">HelpJuice</a></span>
+                <div class="role">
+                    <div class="role-top">
+                        <div class="role-title">Frontend Engineer <span class="role-at">· <a href="https://helpjuice.com">HelpJuice</a></span></div>
+                        <span class="role-dates">Mar 2024 — Jun 2024</span>
                     </div>
-                    <span class="job-meta">Mar 2024 — Jun 2024</span>
+                    <div class="role-where">Remote · U.S.</div>
+                    <ul>
+                        <li>Built the landing page for <strong><a href="https://wizardshot.com" style="color: inherit;">WizardShot.com</a></strong>, a conversion-focused React frontend for a new product in the HelpJuice family.</li>
+                        <li>Delivered custom knowledge base builds for enterprise clients including monday.com and TCL: theming, integrations, and UI tailored to each brand.</li>
+                    </ul>
                 </div>
-                <div class="job-location">Remote · U.S.</div>
-                <ul>
-                    <li>Built the <span class="highlight">landing page for <a href="https://wizardshot.com" style="color: inherit; text-decoration: none;">WizardShot.com</a></span>, a new product under the HelpJuice umbrella — delivering a polished, conversion-focused frontend in React.</li>
-                    <li>Delivered <span class="highlight">custom knowledge base implementations</span> for enterprise clients including monday.com and TCL — tailoring UI/UX, theming, and integrations to each brand's requirements.</li>
-                </ul>
-            </div>
 
-            <!-- Legacy Network -->
-            <div class="job">
-                <div class="job-header">
-                    <div class="job-title-line">
-                        <span class="job-title">Full-Stack Engineer & Product Manager</span>
-                        <span class="job-company">— <a href="https://legacynetwork.io" style="color: inherit; text-decoration: none;">Legacy Network AG</a></span>
+                <div class="role">
+                    <div class="role-top">
+                        <div class="role-title">Full-Stack Engineer & Product Manager <span class="role-at">· <a href="https://legacynetwork.io">Legacy Network AG</a></span></div>
+                        <span class="role-dates">Aug 2022 — Sep 2023</span>
                     </div>
-                    <span class="job-meta">Aug 2022 — Sep 2023</span>
+                    <div class="role-where">Remote · Switzerland</div>
+                    <ul>
+                        <li>Led a full website redesign across teams, driving a <strong>90% increase in user engagement</strong> and 30% more daily visits. TypeScript, React, Sass, Next.js.</li>
+                        <li>Introduced agile workflows and QA audits. Bugs dropped 40%, delivery speed up 50%.</li>
+                    </ul>
                 </div>
-                <div class="job-location">Remote · Switzerland</div>
-                <ul>
-                    <li>Directed a full website redesign bridging cross-functional teams, driving a <span class="highlight">90% increase in user engagement</span> and 30% uptick in daily visits using TypeScript, React, Sass, and Next.js.</li>
-                    <li>Initiated Agile methodologies and QA audits, reducing bug occurrences by 40% and accelerating product delivery by 50%.</li>
-                </ul>
-            </div>
 
-            <!-- AcePlace -->
-            <div class="job">
-                <div class="job-header">
-                    <div class="job-title-line">
-                        <span class="job-title">Senior Product Manager → Lead QA → Frontend Engineer</span>
-                        <span class="job-company">— <a href="https://aceplace.co" style="color: inherit; text-decoration: none;">AcePlace</a></span>
+                <div class="role">
+                    <div class="role-top">
+                        <div class="role-title">Senior PM → Lead QA → Frontend Engineer <span class="role-at">· <a href="https://aceplace.co">AcePlace</a></span></div>
+                        <span class="role-dates">Mar 2022 — Feb 2023</span>
                     </div>
-                    <span class="job-meta">Mar 2022 — Feb 2023</span>
+                    <div class="role-where">Remote · Dubai</div>
+                    <ul>
+                        <li>Worked directly with the CEO on product. Drove core features and cut the release cycle by 25%.</li>
+                        <li>Built QA from scratch. Documented and fixed 400+ bugs, cutting downtime 30% and saving 30% in MRR.</li>
+                    </ul>
                 </div>
-                <div class="job-location">Remote · Dubai</div>
-                <ul>
-                    <li>Acted as the CEO's right hand in product management, spearheading core feature development and accelerating the release cycle by 25% through agile practices across design, development, and product teams.</li>
-                    <li>Established the QA department from scratch — documented and resolved 400+ bugs, achieving a 30% reduction in system downtime and 30% MRR savings through critical bug fixes.</li>
-                </ul>
-            </div>
 
-            <!-- Ridewave / Qwikwire condensed -->
-            <div class="job">
-                <div class="job-header">
-                    <div class="job-title-line">
-                        <span class="job-title">Co-Founder & Head of Sales</span>
-                        <span class="job-company">— RideWave / Qwikwire</span>
+                <div class="role">
+                    <div class="role-top">
+                        <div class="role-title">Co-Founder & Head of Sales <span class="role-at">· RideWave / Qwikwire</span></div>
+                        <span class="role-dates">Jun 2015 — Mar 2020</span>
                     </div>
-                    <span class="job-meta">Jun 2015 — Mar 2020</span>
+                    <ul>
+                        <li>Co-founded a ride-hailing startup (50K+ bookings). Led MVP design and key partnerships. At Qwikwire, drove 40% MoM revenue growth with $2M+ annual transaction volume.</li>
+                    </ul>
                 </div>
-                <ul>
-                    <li>Co-founded a ride-hailing startup (50K+ bookings) — led MVP design and key partnerships. At Qwikwire, drove 40% MoM revenue growth with $2M+ annual transaction volume.</li>
-                </ul>
-            </div>
-        </section>
+            </section>
 
-        <!-- CERTIFICATIONS & FELLOWSHIPS -->
-        <section>
-            <h2>Certifications & Fellowships</h2>
-            <div class="cert-grid">
-                <div class="cert-item">
-                    <div class="cert-name">AI Engineering Fellowship</div>
-                    <div class="cert-org">Headstarter</div>
+            <section>
+                <h2>Fellowships</h2>
+                <div class="two-col">
+                    <div>
+                        <div class="cert-name">AI Engineering Fellowship</div>
+                        <div class="cert-org">Headstarter</div>
+                    </div>
+                    <div>
+                        <div class="cert-name">Content Engineering Cohort</div>
+                        <div class="cert-org">AirOps</div>
+                    </div>
+                    <div>
+                        <div class="cert-name">Cohort 3</div>
+                        <div class="cert-org">GTM Engineering School</div>
+                    </div>
                 </div>
-                <div class="cert-item">
-                    <div class="cert-name">GTM Engineering Cohort</div>
-                    <div class="cert-org">AirOps</div>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- EDUCATION -->
-        <section>
-            <h2>Education</h2>
-            <div class="edu-item">
-                <div>
-                    <span class="edu-school">Microverse</span>
-                    <span class="edu-degree"> — Remote Full-Stack Web Development Program (1,500+ hours)</span>
+            <section>
+                <h2>Education</h2>
+                <div class="edu-row">
+                    <div>
+                        <span class="edu-school">Microverse</span>
+                        <span class="edu-degree"> — Full-Stack Web Development (1,500+ hours)</span>
+                    </div>
+                    <span class="edu-date">2020 — 2022</span>
                 </div>
-                <span class="edu-date">Jun 2020 — Jan 2022</span>
-            </div>
-            <div class="edu-item">
-                <div>
-                    <span class="edu-school">Ateneo de Manila University</span>
-                    <span class="edu-degree"> — AB Sociology-Anthropology</span>
+                <div class="edu-row">
+                    <div>
+                        <span class="edu-school">Ateneo de Manila University</span>
+                        <span class="edu-degree"> — AB Sociology-Anthropology</span>
+                    </div>
+                    <span class="edu-date">2011 — 2015</span>
                 </div>
-                <span class="edu-date">Mar 2011 — May 2015</span>
-            </div>
-        </section>
+            </section>
 
-        <!-- OTHER -->
-        <section>
-            <h2>Additional</h2>
-            <p class="summary">
-                <span class="highlight">Mentorship:</span> Mentored junior devs at Microverse, improving code quality and project handover efficiency by 20%.
-                <span class="highlight" style="margin-left: 8px;">Coaching:</span> Founded Novice — coaching individuals across 10+ countries to secure remote tech opportunities.
-            </p>
-        </section>
+            <section>
+                <h2>Beyond the Code</h2>
+                <p class="additional">
+                    <strong>Mentorship:</strong> Mentored junior devs at Microverse, improving code quality and project handover efficiency by 20%.<br>
+                    <strong>Coaching:</strong> Founded Novice to help people land remote tech jobs from the US, Canada, Japan, Germany, Afghanistan, India, Egypt, Pakistan, and more.
+                </p>
+            </section>
+
+            <div class="footer">Updated March 2026</div>
+        </div>
     </div>
 </body>
 </html>
