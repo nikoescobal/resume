@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Editor</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --accent: #2563eb;
+            --accent-dark: #1d4ed8;
+            --border: #e2e8f0;
+            --bg: #f8fafc;
+            --text: #1e293b;
+            --muted: #64748b;
+        }
+
+        html, body { height: 100%; font-family: Inter, sans-serif; color: var(--text); background: var(--bg); }
+
+        .toolbar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 18px;
+            background: #fff;
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            flex-wrap: wrap;
+        }
+
+        .title {
+            font-weight: 700;
+            font-size: 14px;
+            margin-right: 8px;
+        }
+
+        select, button {
+            font-family: Inter, sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s;
+        }
+
+        select {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            background: #fff;
+            color: var(--text);
+        }
+
+        button {
+            padding: 8px 14px;
+            border: 1px solid var(--border);
+            background: #fff;
+            color: var(--muted);
+        }
+
+        button.primary {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+        button.primary.active {
+            background: var(--accent-dark);
+        }
+        button:hover { border-color: #94a3b8; }
+        button.primary:hover { background: var(--accent-dark); }
+
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .status {
+            font-size: 11px;
+            color: var(--muted);
+            margin-left: auto;
+        }
+
+        .viewport {
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+        }
+
+        iframe {
+            width: 100%;
+            max-width: 8.8in;
+            height: calc(100vh - 120px);
+            border: 1px solid var(--border);
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .empty {
+            padding: 80px 20px;
+            text-align: center;
+            color: var(--muted);
+        }
+    </style>
+</head>
+<body>
+    <div class="toolbar">
+        <span class="title">Resume Editor</span>
+        <select id="variantSelect">
+            <option value="moregooddays.html">moregooddays.html</option>
+            <option value="index.html">index.html (main)</option>
+        </select>
+        <button id="editBtn" class="primary">Edit</button>
+        <button id="resetBtn" disabled>Reset</button>
+        <button id="exportBtn">Export HTML</button>
+        <span class="status" id="status"></span>
+    </div>
+    <div class="viewport">
+        <iframe id="frame" title="Resume preview"></iframe>
+    </div>
+
+    <script>
+        const frame = document.getElementById('frame');
+        const select = document.getElementById('variantSelect');
+        const editBtn = document.getElementById('editBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const exportBtn = document.getElementById('exportBtn');
+        const status = document.getElementById('status');
+
+        let currentFile = null;
+        let originalHTML = null;
+        let editing = false;
+        let saveTimer = null;
+
+        const initial = new URLSearchParams(location.search).get('file');
+        if (initial) select.value = initial;
+
+        function storageKey(file) { return 'resume-edit:/resume/' + file; }
+
+        function setStatus(text, fade) {
+            status.textContent = text;
+            if (fade) {
+                clearTimeout(setStatus._t);
+                setStatus._t = setTimeout(() => (status.textContent = ''), 1500);
+            }
+        }
+
+        async function loadVariant(file) {
+            currentFile = file;
+            editing = false;
+            editBtn.textContent = 'Edit';
+            editBtn.classList.remove('active');
+            resetBtn.disabled = !localStorage.getItem(storageKey(file));
+            setStatus('loading…');
+
+            const res = await fetch(file + '?t=' + Date.now());
+            originalHTML = await res.text();
+
+            const saved = localStorage.getItem(storageKey(file));
+            const html = saved ? injectSavedPage(originalHTML, saved) : originalHTML;
+
+            frame.srcdoc = html;
+            frame.onload = () => {
+                setStatus(saved ? 'local edits loaded' : 'loaded', true);
+                resetBtn.disabled = !localStorage.getItem(storageKey(file));
+            };
+        }
+
+        function injectSavedPage(rawHtml, savedPageInnerHTML) {
+            return rawHtml.replace(
+                /(<div class="page">)([\s\S]*?)(<\/div>\s*<\/body>)/,
+                `$1${savedPageInnerHTML}$3`
+            );
+        }
+
+        function getFramePage() {
+            return frame.contentDocument && frame.contentDocument.querySelector('.page');
+        }
+
+        editBtn.addEventListener('click', () => {
+            const page = getFramePage();
+            if (!page) return;
+            editing = !editing;
+            page.contentEditable = editing;
+            page.style.outline = editing ? '2px dashed #2563eb' : '';
+            page.style.outlineOffset = editing ? '4px' : '';
+            editBtn.textContent = editing ? 'Done' : 'Edit';
+            editBtn.classList.toggle('active', editing);
+
+            if (editing) {
+                page.addEventListener('input', onInput);
+            } else {
+                page.removeEventListener('input', onInput);
+            }
+        });
+
+        function onInput() {
+            const page = getFramePage();
+            if (!page) return;
+            clearTimeout(saveTimer);
+            setStatus('saving…');
+            saveTimer = setTimeout(() => {
+                localStorage.setItem(storageKey(currentFile), page.innerHTML);
+                resetBtn.disabled = false;
+                setStatus('saved', true);
+            }, 300);
+        }
+
+        resetBtn.addEventListener('click', () => {
+            if (!confirm('Discard local edits for ' + currentFile + '?')) return;
+            localStorage.removeItem(storageKey(currentFile));
+            loadVariant(currentFile);
+        });
+
+        exportBtn.addEventListener('click', () => {
+            const page = getFramePage();
+            if (!page || !originalHTML) return;
+            const merged = injectSavedPage(originalHTML, page.innerHTML);
+            const blob = new Blob([merged], { type: 'text/html' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = currentFile;
+            a.click();
+            setStatus('downloaded', true);
+        });
+
+        select.addEventListener('change', () => loadVariant(select.value));
+        loadVariant(select.value);
+    </script>
+</body>
+</html>
