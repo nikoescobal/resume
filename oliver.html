@@ -208,6 +208,7 @@
         Download CV
     </button>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js"></script>
+    <script src="editor.js" defer></script>
     <script>
         document.getElementById('downloadBtn').addEventListener('click', function() {
             var btn = this;
@@ -250,7 +251,7 @@
             <div class="skills-grid">
                 <div class="skill-category">
                     <span class="skill-label">Automation:</span>
-                    <span class="skill-items">Puppeteer, Playwright, Claude Code, Anthropic API, OpenAI API, Clay, People Data Labs, n8n, cron/schedulers</span>
+                    <span class="skill-items">Claude Code, Puppeteer, Playwright, Anthropic API, OpenAI API, Clay, n8n, cron/schedulers</span>
                 </div>
                 <div class="skill-category">
                     <span class="skill-label">App &amp; UI:</span>
@@ -283,10 +284,10 @@
             <div class="project">
                 <div class="project-header">
                     <span class="project-name">Pre-Arrival Prospecting Pipeline — Hilton Garden Inn Boston-Burlington</span>
-                    <span class="project-tech">Puppeteer · Claude Haiku · PDL · Clay</span>
+                    <span class="project-tech">Claude Code · Puppeteer · Clay</span>
                 </div>
                 <p class="project-desc">
-                    Biweekly 5-phase pipeline: scrapes the Hilton PEP Citrix portal (HTML5 canvas) via Puppeteer + screen capture, OCRs the arrivals grid with <span class="highlight">Claude Haiku</span>, runs deterministic filters (LOS caps, SRP exclusions, dedup), waterfall-enriches guests through <span class="highlight">People Data Labs and Clay</span>, cross-references Agency360 and Lighthouse competitive data, then emails a tiered HTML prospect report to the sales team with a double-confirm guardrail and full audit log. Produces <span class="highlight">metrics.json</span> tracking resolved-employer %, tier distribution, and match rates per send.
+                    Biweekly pipeline: scrapes the Hilton PEP Citrix portal (HTML5 canvas) via Puppeteer + screen capture, extracts the arrivals grid with <span class="highlight">Claude Code</span>, runs deterministic filters (LOS caps, SRP exclusions, dedup), enriches guests via <span class="highlight">Clay</span>, and cross-references <span class="highlight">Agency360 and Lighthouse</span> data to tier each lead (corporate accounts vs. declining segments vs. flagged). Emails a tiered HTML prospect report to the sales team with a double-confirm guardrail and full audit log. The high-value pieces: reliable portal extraction and the Agency360/Lighthouse tiering — those are what turn a raw arrivals list into ranked outreach.
                 </p>
             </div>
 
@@ -384,12 +385,12 @@
                     <div class="cert-org">Headstarter</div>
                 </div>
                 <div class="cert-item">
-                    <div class="cert-name">Engineering Cohort (Advanced)</div>
-                    <div class="cert-org">AirOps</div>
+                    <div class="cert-name">Content Engineering Cohort</div>
+                    <div class="cert-org">Advanced</div>
                 </div>
                 <div class="cert-item">
-                    <div class="cert-name">GTM Engineering Cohort</div>
-                    <div class="cert-org">AirOps</div>
+                    <div class="cert-name">Cohort 3</div>
+                    <div class="cert-org">GTM Engineering School</div>
                 </div>
             </div>
         </section>
