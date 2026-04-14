@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost in the void — Nikolas Escobal</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #0f172a;
+            --accent: #2563eb;
+            --accent-light: #dbeafe;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text);
+            background: radial-gradient(circle at 30% 20%, #dbeafe 0%, #ffffff 55%, #f1f5f9 100%);
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .wrap {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+            position: relative;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.35;
+            animation: drift 18s ease-in-out infinite;
+            pointer-events: none;
+        }
+        .blob.a { width: 420px; height: 420px; background: #2563eb; top: -80px; left: -80px; }
+        .blob.b { width: 360px; height: 360px; background: #38bdf8; bottom: -100px; right: -60px; animation-delay: -6s; animation-duration: 22s; }
+        .blob.c { width: 260px; height: 260px; background: #a78bfa; top: 40%; right: 20%; animation-delay: -12s; opacity: 0.25; }
+
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33%      { transform: translate(80px, 40px) scale(1.15); }
+            66%      { transform: translate(-40px, 60px) scale(0.9); }
+        }
+
+        .code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(120px, 22vw, 240px);
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.05em;
+            line-height: 1;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #0f172a 0%, #2563eb 60%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: float 4s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50%      { transform: translateY(-14px); }
+        }
+
+        .headline {
+            font-size: clamp(22px, 3vw, 30px);
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .sub {
+            font-size: 15px;
+            color: var(--text-light);
+            margin-bottom: 28px;
+            max-width: 460px;
+            line-height: 1.55;
+            position: relative;
+            z-index: 1;
+        }
+
+        .countdown {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 26px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+            transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(37, 99, 235, 0.45);
+        }
+
+        .btn svg {
+            width: 16px;
+            height: 16px;
+            animation: nudge 1.6s ease-in-out infinite;
+        }
+
+        @keyframes nudge {
+            0%, 100% { transform: translateX(0); }
+            50%      { transform: translateX(4px); }
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 12px;
+            color: var(--text-light);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .blob, .code, .btn svg { animation: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="blob a"></div>
+        <div class="blob b"></div>
+        <div class="blob c"></div>
+
+        <div class="code">404</div>
+        <div class="headline">This page wandered off.</div>
+        <div class="sub">
+            That path doesn't exist — probably a typo.
+            Taking you back in <span class="countdown" id="count">5</span>s.
+        </div>
+        <a class="btn" href="/resume/" id="homeBtn">
+            Go to Niko's resume
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M13 5l7 7-7 7"/>
+            </svg>
+        </a>
+
+        <div class="footer">nikoescobal.github.io</div>
+    </div>
+
+    <script>
+        var n = 5;
+        var el = document.getElementById('count');
+        var timer = setInterval(function () {
+            n -= 1;
+            if (n <= 0) {
+                clearInterval(timer);
+                window.location.href = '/resume/';
+            } else {
+                el.textContent = n;
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
