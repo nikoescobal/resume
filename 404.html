@@ -15,15 +15,25 @@
             --text: #1e293b;
             --text-light: #64748b;
 
-            /* Pusheen palette */
             --body:    #b8a590;
             --patch:   #8a7766;
             --outline: #3f3025;
+            --pink:    #f3b4c5;
+            --yellow:  #f2c14e;
+            --cheese:  #f6d27a;
+            --crust:   #e0a965;
+            --pepp:    #c94c4c;
+            --cup:     #ffffff;
+            --cup-dark:#d9d9d9;
+            --coffee:  #6b4a36;
+            --laptop:  #cbd5e1;
+            --laptop-dark:#94a3b8;
+            --screen:  #0f172a;
         }
 
         html, body {
             height: 100%;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', sans-serif;
             color: var(--text);
             background: radial-gradient(circle at 30% 20%, #dbeafe 0%, #ffffff 55%, #f1f5f9 100%);
             overflow: hidden;
@@ -65,7 +75,6 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: clamp(120px, 22vw, 260px);
             font-weight: 800;
-            color: var(--primary);
             letter-spacing: -0.05em;
             line-height: 1;
             margin-bottom: 12px;
@@ -82,7 +91,7 @@
         }
 
         .headline { font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: var(--primary); margin-bottom: 10px; }
-        .sub      { font-size: 15px; color: var(--text-light); margin-bottom: 28px; max-width: 460px; line-height: 1.55; }
+        .sub { font-size: 15px; color: var(--text-light); margin-bottom: 28px; max-width: 460px; line-height: 1.55; }
         .countdown { font-family: 'JetBrains Mono', monospace; color: var(--accent); font-weight: 600; }
 
         .btn {
@@ -118,31 +127,44 @@
             z-index: 5;
         }
 
-        /* ===== PUSHEEN ===== */
-        .pusheen {
-            position: absolute;
-            pointer-events: none;
-            z-index: 2;
-        }
-        .pusheen path,
-        .pusheen rect,
-        .pusheen ellipse,
-        .pusheen line { stroke-linecap: round; stroke-linejoin: round; }
+        /* ===== PUSHEENS ===== */
+        .pusheen { position: absolute; pointer-events: none; z-index: 2; }
+        .pusheen path, .pusheen rect, .pusheen ellipse, .pusheen line, .pusheen circle { stroke-linecap: round; stroke-linejoin: round; }
 
-        .p-main {
-            bottom: 6vh;
-            left: 4vw;
-            width: clamp(240px, 28vw, 420px);
-            animation: breathe 3.8s ease-in-out infinite;
+        /* Typing at laptop — bottom-left */
+        .p-laptop {
+            bottom: 5vh; left: 3vw;
+            width: clamp(260px, 30vw, 440px);
+            animation: bob 3.4s ease-in-out infinite;
             transform-origin: center bottom;
         }
-        .p-main .tail-tip { transform-origin: 300px 120px; animation: tail-wag 2.4s ease-in-out infinite; }
+        .p-laptop .paw-l { transform-origin: 138px 160px; animation: tap 0.5s ease-in-out infinite; }
+        .p-laptop .paw-r { transform-origin: 220px 160px; animation: tap 0.5s ease-in-out infinite; animation-delay: -0.25s; }
+        .p-laptop .cursor { animation: blink 1s step-end infinite; }
 
+        /* Pizza eating — bottom-right */
+        .p-pizza {
+            bottom: 6vh; right: 4vw;
+            width: clamp(220px, 26vw, 360px);
+            animation: munch 1.8s ease-in-out infinite;
+            transform-origin: center bottom;
+        }
+
+        /* Coffee holding — top-right */
+        .p-coffee {
+            top: 6vh; right: 5vw;
+            width: clamp(180px, 20vw, 280px);
+            animation: sip 4s ease-in-out infinite;
+            transform-origin: center bottom;
+        }
+        .p-coffee .steam { animation: steam 2.6s ease-in-out infinite; transform-origin: center bottom; opacity: 0.7; }
+        .p-coffee .steam2 { animation-delay: -1.3s; }
+
+        /* Sleeping — top-left */
         .p-sleep {
-            bottom: 5vh;
-            right: 4vw;
-            width: clamp(220px, 26vw, 380px);
-            animation: breathe 4.4s ease-in-out infinite;
+            top: 6vh; left: 4vw;
+            width: clamp(180px, 20vw, 300px);
+            animation: breathe 4.2s ease-in-out infinite;
             transform-origin: center bottom;
         }
         .p-sleep .z {
@@ -155,65 +177,49 @@
         .p-sleep .z2 { animation-delay: -0.8s; }
         .p-sleep .z3 { animation-delay: -1.6s; }
 
-        .p-fly {
-            top: 8vh;
-            right: 5vw;
-            width: clamp(170px, 18vw, 260px);
-            animation: fly 6s ease-in-out infinite;
-        }
-        .p-fly .wing-l, .p-fly .wing-r {
-            transform-origin: center;
-            animation: flap 0.6s ease-in-out infinite;
-        }
-        .p-fly .wing-r { animation-delay: -0.3s; }
-
-        .p-peek {
-            top: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: clamp(160px, 16vw, 240px);
-            animation: peek 8s ease-in-out infinite;
-            transform-origin: top center;
-        }
-
         @keyframes breathe {
             0%, 100% { transform: scale(1, 1); }
             50%      { transform: scale(1.02, 0.98); }
         }
-        @keyframes tail-wag {
-            0%, 100% { transform: rotate(-4deg); }
-            50%      { transform: rotate(12deg); }
+        @keyframes bob {
+            0%, 100% { transform: translateY(0); }
+            50%      { transform: translateY(-4px); }
+        }
+        @keyframes tap {
+            0%, 100% { transform: translateY(0); }
+            50%      { transform: translateY(-5px); }
+        }
+        @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+        @keyframes munch {
+            0%, 100% { transform: scale(1, 1); }
+            20%      { transform: scale(1.02, 0.97); }
+            40%      { transform: scale(0.99, 1.02); }
+        }
+        @keyframes sip {
+            0%, 100% { transform: rotate(0); }
+            45%      { transform: rotate(-4deg); }
+            55%      { transform: rotate(-4deg); }
+        }
+        @keyframes steam {
+            0%   { transform: translateY(0) scale(0.6); opacity: 0; }
+            30%  { opacity: 0.8; }
+            100% { transform: translateY(-22px) scale(1.4); opacity: 0; }
         }
         @keyframes zfloat {
             0%   { opacity: 0; transform: translate(0, 0) scale(0.7); }
             20%  { opacity: 1; }
-            100% { opacity: 0; transform: translate(16px, -34px) scale(1.3); }
-        }
-        @keyframes fly {
-            0%, 100% { transform: translateY(0) rotate(-2deg); }
-            50%      { transform: translateY(-18px) rotate(3deg); }
-        }
-        @keyframes flap {
-            0%, 100% { transform: scaleY(1); }
-            50%      { transform: scaleY(0.4); }
-        }
-        @keyframes peek {
-            0%, 25%, 75%, 100% { transform: translate(-50%, -80%); }
-            40%, 60%           { transform: translate(-50%, 0); }
+            100% { opacity: 0; transform: translate(14px, -30px) scale(1.3); }
         }
 
         @media (prefers-reduced-motion: reduce) {
             .blob, .code, .btn svg,
-            .p-main, .p-main .tail-tip,
-            .p-sleep, .p-sleep .z,
-            .p-fly, .p-fly .wing-l, .p-fly .wing-r,
-            .p-peek { animation: none; }
+            .p-laptop, .p-laptop .paw-l, .p-laptop .paw-r, .p-laptop .cursor,
+            .p-pizza, .p-coffee, .p-coffee .steam, .p-sleep, .p-sleep .z { animation: none; }
         }
 
-        @media (max-width: 680px) {
-            .p-fly { display: none; }
-            .p-main { left: 2vw; }
-            .p-sleep { right: 2vw; }
+        @media (max-width: 720px) {
+            .p-coffee { display: none; }
+            .p-sleep  { top: 3vh; width: 140px; }
         }
     </style>
 </head>
@@ -222,32 +228,6 @@
         <div class="blob a"></div>
         <div class="blob b"></div>
         <div class="blob c"></div>
-
-        <!-- Peek Pusheen -->
-        <svg class="pusheen p-peek" viewBox="0 0 240 180" aria-hidden="true">
-            <!-- Ears -->
-            <path d="M58 56 L46 22 L86 48 Z" fill="var(--body)" stroke="var(--outline)" stroke-width="4"/>
-            <path d="M182 56 L194 22 L154 48 Z" fill="var(--body)" stroke="var(--outline)" stroke-width="4"/>
-            <!-- Head/body peek -->
-            <path d="M20 80 C20 52, 56 40, 120 40 C184 40, 220 52, 220 80 L220 180 L20 180 Z"
-                  fill="var(--body)" stroke="var(--outline)" stroke-width="4"/>
-            <!-- 3 head dashes -->
-            <ellipse cx="92"  cy="64" rx="8" ry="3" fill="var(--patch)"/>
-            <ellipse cx="120" cy="58" rx="4" ry="2.5" fill="var(--patch)"/>
-            <ellipse cx="148" cy="64" rx="8" ry="3" fill="var(--patch)"/>
-            <!-- Eyes -->
-            <ellipse cx="80"  cy="96" rx="5" ry="7" fill="var(--outline)"/>
-            <ellipse cx="160" cy="96" rx="5" ry="7" fill="var(--outline)"/>
-            <!-- Mouth -->
-            <path d="M108 116 Q114 122 120 116 Q126 122 132 116" stroke="var(--outline)" stroke-width="2.2" fill="none"/>
-            <!-- Whiskers -->
-            <line x1="54" y1="102" x2="22"  y2="94"  stroke="var(--outline)" stroke-width="2.2"/>
-            <line x1="54" y1="110" x2="20"  y2="110" stroke="var(--outline)" stroke-width="2.2"/>
-            <line x1="54" y1="118" x2="22"  y2="126" stroke="var(--outline)" stroke-width="2.2"/>
-            <line x1="186" y1="102" x2="218" y2="94"  stroke="var(--outline)" stroke-width="2.2"/>
-            <line x1="186" y1="110" x2="220" y2="110" stroke="var(--outline)" stroke-width="2.2"/>
-            <line x1="186" y1="118" x2="218" y2="126" stroke="var(--outline)" stroke-width="2.2"/>
-        </svg>
 
         <div class="center">
             <div class="code">404</div>
@@ -264,154 +244,215 @@
             </a>
         </div>
 
-        <!-- Classic standing Pusheen (bottom-left) -->
-        <svg class="pusheen p-main" viewBox="0 0 340 220" aria-hidden="true">
-            <!-- Tail -->
-            <g class="tail-tip">
-                <path d="M298 134 Q334 114 326 70 Q322 58 314 62 Q314 80 300 96 Q292 106 292 120 Z"
-                      fill="var(--body)" stroke="var(--outline)" stroke-width="4"/>
-                <rect x="306" y="76" width="14" height="4" rx="1.5" fill="var(--patch)"/>
-                <rect x="310" y="88" width="14" height="4" rx="1.5" fill="var(--patch)"/>
-                <rect x="302" y="100" width="14" height="4" rx="1.5" fill="var(--patch)"/>
-            </g>
+        <!-- ============ LAPTOP PUSHEEN (typing) ============ -->
+        <svg class="pusheen p-laptop" viewBox="0 0 360 240" aria-hidden="true">
+            <!-- Body (sitting upright, taller shape) -->
+            <path d="M60 96
+                     C 60 56, 92 34, 130 34
+                     L 230 34
+                     C 268 34, 300 56, 300 96
+                     L 300 200
+                     C 300 220, 280 228, 258 228
+                     L 102 228
+                     C 80 228, 60 220, 60 200 Z"
+                  fill="var(--body)" stroke="var(--outline)" stroke-width="4"/>
+            <!-- Ears -->
+            <path d="M104 38 L94 14 L130 34 Z"   fill="var(--body)" stroke="var(--outline)" stroke-width="4"/>
+            <path d="M256 38 L266 14 L230 34 Z"  fill="var(--body)" stroke="var(--outline)" stroke-width="4"/>
+            <!-- Head dashes -->
+            <ellipse cx="160" cy="58" rx="9"   ry="3"   fill="var(--patch)"/>
+            <ellipse cx="190" cy="52" rx="4.5" ry="2.5" fill="var(--patch)"/>
+            <ellipse cx="220" cy="58" rx="9"   ry="3"   fill="var(--patch)"/>
+            <!-- Focused eyes (half-closed, concentrating) -->
+            <path d="M142 96 Q150 102 158 96" stroke="var(--outline)" stroke-width="3" fill="none"/>
+            <path d="M222 96 Q230 102 238 96" stroke="var(--outline)" stroke-width="3" fill="none"/>
+            <!-- Mouth -->
+            <path d="M176 114 Q182 120 188 114" stroke="var(--outline)" stroke-width="2.4" fill="none"/>
+            <!-- Whiskers -->
+            <line x1="94"  y1="100" x2="62"  y2="92"  stroke="var(--outline)" stroke-width="2.4"/>
+            <line x1="94"  y1="108" x2="58"  y2="108" stroke="var(--outline)" stroke-width="2.4"/>
+            <line x1="94"  y1="116" x2="62"  y2="124" stroke="var(--outline)" stroke-width="2.4"/>
+            <line x1="266" y1="100" x2="298" y2="92"  stroke="var(--outline)" stroke-width="2.4"/>
+            <line x1="266" y1="108" x2="302" y2="108" stroke="var(--outline)" stroke-width="2.4"/>
+            <line x1="266" y1="116" x2="298" y2="124" stroke="var(--outline)" stroke-width="2.4"/>
 
-            <!-- Body (wide loaf) -->
-            <path d="M24 98
-                     C 24 58, 58 36, 96 36
-                     L 244 36
-                     C 282 36, 316 58, 316 98
-                     L 316 158
-                     C 316 180, 294 192, 270 192
-                     L 248 192
-                     L 248 202 Q 248 212 238 212 Q 228 212 228 202 L 228 192
-                     L 200 192
-                     L 200 202 Q 200 212 190 212 Q 180 212 180 202 L 180 192
-                     L 152 192
-                     L 152 202 Q 152 212 142 212 Q 132 212 132 202 L 132 192
-                     L 104 192
-                     L 104 202 Q 104 212 94 212 Q 84 212 84 202 L 84 192
-                     L 72 192
-                     C 46 192, 24 180, 24 158 Z"
+            <!-- Laptop base (in front of body) -->
+            <rect x="106" y="172" width="148" height="14" rx="3" fill="var(--laptop)" stroke="var(--outline)" stroke-width="3"/>
+            <!-- Laptop screen -->
+            <rect x="114" y="118" width="132" height="58" rx="4" fill="var(--screen)" stroke="var(--outline)" stroke-width="3"/>
+            <!-- Screen text lines -->
+            <rect x="124" y="130" width="40" height="3" rx="1" fill="#38bdf8"/>
+            <rect x="124" y="140" width="70" height="3" rx="1" fill="#94a3b8"/>
+            <rect x="124" y="150" width="54" height="3" rx="1" fill="#94a3b8"/>
+            <rect x="124" y="160" width="30" height="3" rx="1" fill="#94a3b8"/>
+            <rect class="cursor" x="158" y="160" width="4" height="4" fill="#f8fafc"/>
+
+            <!-- Paws typing on keyboard -->
+            <ellipse class="paw-l" cx="138" cy="174" rx="14" ry="9" fill="var(--body)" stroke="var(--outline)" stroke-width="3"/>
+            <ellipse class="paw-r" cx="220" cy="174" rx="14" ry="9" fill="var(--body)" stroke="var(--outline)" stroke-width="3"/>
+
+            <!-- Foot nubs -->
+            <rect x="108" y="222" width="34" height="14" rx="6" fill="var(--body)" stroke="var(--outline)" stroke-width="3"/>
+            <rect x="218" y="222" width="34" height="14" rx="6" fill="var(--body)" stroke="var(--outline)" stroke-width="3"/>
+
+            <!-- Tail curled around side -->
+            <path d="M300 160 Q334 146 330 108 Q324 96 316 104 Q316 124 306 140 Q300 150 300 160 Z"
+                  fill="var(--body)" stroke="var(--outline)" stroke-width="3.5"/>
+            <rect x="314" y="116" width="12" height="3" rx="1" fill="var(--patch)"/>
+            <rect x="318" y="128" width="12" height="3" rx="1" fill="var(--patch)"/>
+        </svg>
+
+        <!-- ============ PIZZA PUSHEEN ============ -->
+        <svg class="pusheen p-pizza" viewBox="0 0 320 220" aria-hidden="true">
+            <!-- Body (loaf) -->
+            <path d="M28 106
+                     C 28 66, 62 44, 100 44
+                     L 220 44
+                     C 258 44, 292 66, 292 106
+                     L 292 168
+                     C 292 190, 272 200, 248 200
+                     L 224 200 L 224 210 Q 224 218 216 218 Q 208 218 208 210 L 208 200
+                     L 180 200 L 180 210 Q 180 218 172 218 Q 164 218 164 210 L 164 200
+                     L 136 200 L 136 210 Q 136 218 128 218 Q 120 218 120 210 L 120 200
+                     L 92 200  L 92 210  Q 92 218 84 218  Q 76 218 76 210  L 76 200
+                     L 72 200
+                     C 48 200, 28 190, 28 168 Z"
                   fill="var(--body)" stroke="var(--outline)" stroke-width="4"/>
 
             <!-- Ears -->
-            <path d="M72 40 L60 14 L96 36 Z"   fill="var(--body)" stroke="var(--outline)" stroke-width="4"/>
-            <path d="M268 40 L280 14 L244 36 Z" fill="var(--body)" stroke="var(--outline)" stroke-width="4"/>
+            <path d="M74 48 L64 22 L96 42 Z"    fill="var(--body)" stroke="var(--outline)" stroke-width="4"/>
+            <path d="M246 48 L256 22 L224 42 Z" fill="var(--body)" stroke="var(--outline)" stroke-width="4"/>
 
             <!-- Back patch -->
-            <ellipse cx="248" cy="88" rx="34" ry="22" fill="var(--patch)"/>
+            <ellipse cx="234" cy="98" rx="30" ry="20" fill="var(--patch)"/>
 
             <!-- Head dashes -->
-            <ellipse cx="138" cy="60" rx="9" ry="3" fill="var(--patch)"/>
-            <ellipse cx="170" cy="54" rx="4.5" ry="2.5" fill="var(--patch)"/>
-            <ellipse cx="202" cy="60" rx="9" ry="3" fill="var(--patch)"/>
+            <ellipse cx="128" cy="66" rx="8"   ry="3"   fill="var(--patch)"/>
+            <ellipse cx="158" cy="60" rx="4"   ry="2.5" fill="var(--patch)"/>
+            <ellipse cx="188" cy="66" rx="8"   ry="3"   fill="var(--patch)"/>
 
-            <!-- Eyes -->
-            <ellipse cx="122" cy="96" rx="5.5" ry="7.5" fill="var(--outline)"/>
-            <ellipse cx="218" cy="96" rx="5.5" ry="7.5" fill="var(--outline)"/>
+            <!-- Eyes (happy squint) -->
+            <path d="M112 104 Q120 96 128 104" stroke="var(--outline)" stroke-width="3" fill="none"/>
+            <path d="M190 104 Q198 96 206 104" stroke="var(--outline)" stroke-width="3" fill="none"/>
 
-            <!-- Mouth -->
-            <path d="M160 118 Q166 126 172 118 Q178 126 184 118" stroke="var(--outline)" stroke-width="2.4" fill="none"/>
+            <!-- Open mouth mid-chew -->
+            <ellipse cx="159" cy="126" rx="6" ry="4" fill="var(--outline)"/>
 
             <!-- Whiskers -->
-            <line x1="60"  y1="100" x2="28"  y2="92"  stroke="var(--outline)" stroke-width="2.4"/>
-            <line x1="60"  y1="108" x2="24"  y2="108" stroke="var(--outline)" stroke-width="2.4"/>
-            <line x1="60"  y1="116" x2="28"  y2="124" stroke="var(--outline)" stroke-width="2.4"/>
-            <line x1="280" y1="100" x2="312" y2="92"  stroke="var(--outline)" stroke-width="2.4"/>
-            <line x1="280" y1="108" x2="316" y2="108" stroke="var(--outline)" stroke-width="2.4"/>
-            <line x1="280" y1="116" x2="312" y2="124" stroke="var(--outline)" stroke-width="2.4"/>
+            <line x1="62"  y1="108" x2="30"  y2="100" stroke="var(--outline)" stroke-width="2.4"/>
+            <line x1="62"  y1="116" x2="26"  y2="116" stroke="var(--outline)" stroke-width="2.4"/>
+            <line x1="62"  y1="124" x2="30"  y2="132" stroke="var(--outline)" stroke-width="2.4"/>
+            <line x1="258" y1="108" x2="290" y2="100" stroke="var(--outline)" stroke-width="2.4"/>
+            <line x1="258" y1="116" x2="294" y2="116" stroke="var(--outline)" stroke-width="2.4"/>
+            <line x1="258" y1="124" x2="290" y2="132" stroke="var(--outline)" stroke-width="2.4"/>
+
+            <!-- Pizza slice held in paw -->
+            <path d="M82 146 L116 144 L100 190 Z" fill="var(--cheese)" stroke="var(--outline)" stroke-width="3"/>
+            <path d="M82 146 L116 144 L114 150 L84 152 Z" fill="var(--crust)" stroke="var(--outline)" stroke-width="3"/>
+            <circle cx="96" cy="162" r="4.5" fill="var(--pepp)" stroke="var(--outline)" stroke-width="2"/>
+            <circle cx="106" cy="170" r="3.5" fill="var(--pepp)" stroke="var(--outline)" stroke-width="2"/>
+            <!-- Paw holding pizza -->
+            <ellipse cx="80" cy="156" rx="14" ry="10" fill="var(--body)" stroke="var(--outline)" stroke-width="3"/>
         </svg>
 
-        <!-- Sleeping Pusheen (bottom-right) -->
-        <svg class="pusheen p-sleep" viewBox="0 0 340 200" aria-hidden="true">
-            <!-- Body (loaf, no feet visible — sleeping flat) -->
+        <!-- ============ COFFEE PUSHEEN ============ -->
+        <svg class="pusheen p-coffee" viewBox="0 0 280 220" aria-hidden="true">
+            <!-- Steam -->
+            <path class="steam"  d="M170 14 Q178 2 166 -10 Q160 -20 170 -28" stroke="var(--cup-dark)" stroke-width="3" fill="none"/>
+            <path class="steam steam2" d="M194 18 Q186 6 198 -8 Q204 -18 194 -26" stroke="var(--cup-dark)" stroke-width="3" fill="none"/>
+
+            <!-- Body (upright sitting) -->
+            <path d="M40 100
+                     C 40 60, 72 40, 110 40
+                     L 180 40
+                     C 218 40, 250 60, 250 100
+                     L 250 188
+                     C 250 208, 230 216, 208 216
+                     L 82 216
+                     C 60 216, 40 208, 40 188 Z"
+                  fill="var(--body)" stroke="var(--outline)" stroke-width="4"/>
+
+            <!-- Ears -->
+            <path d="M86 44 L76 18 L110 40 Z"   fill="var(--body)" stroke="var(--outline)" stroke-width="4"/>
+            <path d="M204 44 L214 18 L180 40 Z" fill="var(--body)" stroke="var(--outline)" stroke-width="4"/>
+
+            <!-- Back patch -->
+            <ellipse cx="200" cy="92" rx="26" ry="18" fill="var(--patch)"/>
+
+            <!-- Head dashes -->
+            <ellipse cx="126" cy="60" rx="8" ry="3" fill="var(--patch)"/>
+            <ellipse cx="154" cy="54" rx="4" ry="2.5" fill="var(--patch)"/>
+            <ellipse cx="178" cy="60" rx="8" ry="3" fill="var(--patch)"/>
+
+            <!-- Eyes -->
+            <ellipse cx="112" cy="98" rx="5" ry="7" fill="var(--outline)"/>
+            <ellipse cx="192" cy="98" rx="5" ry="7" fill="var(--outline)"/>
+
+            <!-- Sipping mouth -->
+            <ellipse cx="152" cy="120" rx="5" ry="3.5" fill="var(--outline)"/>
+
+            <!-- Whiskers -->
+            <line x1="74"  y1="102" x2="44"  y2="94"  stroke="var(--outline)" stroke-width="2.4"/>
+            <line x1="74"  y1="110" x2="40"  y2="110" stroke="var(--outline)" stroke-width="2.4"/>
+            <line x1="74"  y1="118" x2="44"  y2="126" stroke="var(--outline)" stroke-width="2.4"/>
+            <line x1="216" y1="102" x2="246" y2="94"  stroke="var(--outline)" stroke-width="2.4"/>
+            <line x1="216" y1="110" x2="250" y2="110" stroke="var(--outline)" stroke-width="2.4"/>
+            <line x1="216" y1="118" x2="246" y2="126" stroke="var(--outline)" stroke-width="2.4"/>
+
+            <!-- Coffee cup held in both paws -->
+            <path d="M134 144 L182 144 L178 196 L138 196 Z" fill="var(--cup)" stroke="var(--outline)" stroke-width="3.5"/>
+            <path d="M134 144 L182 144 L180 154 L136 154 Z" fill="var(--coffee)" stroke="var(--outline)" stroke-width="3.5"/>
+            <!-- Cup handle -->
+            <path d="M182 158 Q200 162 198 178 Q196 192 180 190" fill="none" stroke="var(--outline)" stroke-width="3.5"/>
+            <!-- Paws holding cup -->
+            <ellipse cx="132" cy="178" rx="12" ry="9" fill="var(--body)" stroke="var(--outline)" stroke-width="3"/>
+            <ellipse cx="184" cy="178" rx="12" ry="9" fill="var(--body)" stroke="var(--outline)" stroke-width="3"/>
+        </svg>
+
+        <!-- ============ SLEEPING PUSHEEN ============ -->
+        <svg class="pusheen p-sleep" viewBox="0 0 300 180" aria-hidden="true">
+            <!-- Body (long flat loaf) -->
             <path d="M24 110
                      C 24 70, 58 50, 96 50
-                     L 244 50
-                     C 282 50, 316 70, 316 110
-                     L 316 170
-                     C 316 188, 298 194, 276 194
-                     L 64 194
-                     C 42 194, 24 188, 24 170 Z"
+                     L 204 50
+                     C 242 50, 276 70, 276 110
+                     L 276 162
+                     C 276 176, 260 182, 240 182
+                     L 60 182
+                     C 40 182, 24 176, 24 162 Z"
                   fill="var(--body)" stroke="var(--outline)" stroke-width="4"/>
 
-            <!-- Ears -->
-            <path d="M72 54 L60 28 L96 50 Z"   fill="var(--body)" stroke="var(--outline)" stroke-width="4"/>
-            <path d="M268 54 L280 28 L244 50 Z" fill="var(--body)" stroke="var(--outline)" stroke-width="4"/>
+            <!-- Ears (down-ish) -->
+            <path d="M72 54 L60 32 L96 50 Z"    fill="var(--body)" stroke="var(--outline)" stroke-width="4"/>
+            <path d="M228 54 L240 32 L204 50 Z" fill="var(--body)" stroke="var(--outline)" stroke-width="4"/>
 
             <!-- Back patch -->
-            <ellipse cx="242" cy="100" rx="38" ry="22" fill="var(--patch)"/>
+            <ellipse cx="208" cy="96" rx="32" ry="20" fill="var(--patch)"/>
 
             <!-- Head dashes -->
-            <ellipse cx="138" cy="74" rx="9" ry="3" fill="var(--patch)"/>
-            <ellipse cx="170" cy="68" rx="4.5" ry="2.5" fill="var(--patch)"/>
-            <ellipse cx="202" cy="74" rx="9" ry="3" fill="var(--patch)"/>
+            <ellipse cx="116" cy="72" rx="8" ry="3" fill="var(--patch)"/>
+            <ellipse cx="146" cy="66" rx="4" ry="2.5" fill="var(--patch)"/>
+            <ellipse cx="176" cy="72" rx="8" ry="3" fill="var(--patch)"/>
 
-            <!-- Closed eyes (curves) -->
-            <path d="M114 108 Q122 116 130 108" stroke="var(--outline)" stroke-width="2.6" fill="none"/>
-            <path d="M210 108 Q218 116 226 108" stroke="var(--outline)" stroke-width="2.6" fill="none"/>
+            <!-- Closed eyes -->
+            <path d="M98  104 Q106 112 114 104" stroke="var(--outline)" stroke-width="2.8" fill="none"/>
+            <path d="M178 104 Q186 112 194 104" stroke="var(--outline)" stroke-width="2.8" fill="none"/>
 
             <!-- Mouth -->
-            <path d="M160 130 Q166 138 172 130 Q178 138 184 130" stroke="var(--outline)" stroke-width="2.4" fill="none"/>
+            <path d="M140 126 Q146 132 152 126" stroke="var(--outline)" stroke-width="2.4" fill="none"/>
 
             <!-- Whiskers -->
-            <line x1="60"  y1="112" x2="28"  y2="104" stroke="var(--outline)" stroke-width="2.4"/>
-            <line x1="60"  y1="120" x2="24"  y2="120" stroke="var(--outline)" stroke-width="2.4"/>
-            <line x1="60"  y1="128" x2="28"  y2="136" stroke="var(--outline)" stroke-width="2.4"/>
-            <line x1="280" y1="112" x2="312" y2="104" stroke="var(--outline)" stroke-width="2.4"/>
-            <line x1="280" y1="120" x2="316" y2="120" stroke="var(--outline)" stroke-width="2.4"/>
-            <line x1="280" y1="128" x2="312" y2="136" stroke="var(--outline)" stroke-width="2.4"/>
+            <line x1="60"  y1="110" x2="28"  y2="102" stroke="var(--outline)" stroke-width="2.4"/>
+            <line x1="60"  y1="118" x2="24"  y2="118" stroke="var(--outline)" stroke-width="2.4"/>
+            <line x1="60"  y1="126" x2="28"  y2="134" stroke="var(--outline)" stroke-width="2.4"/>
+            <line x1="240" y1="110" x2="272" y2="102" stroke="var(--outline)" stroke-width="2.4"/>
+            <line x1="240" y1="118" x2="276" y2="118" stroke="var(--outline)" stroke-width="2.4"/>
+            <line x1="240" y1="126" x2="272" y2="134" stroke="var(--outline)" stroke-width="2.4"/>
 
             <!-- Zs -->
-            <text class="z"  x="248" y="40" font-size="22">z</text>
-            <text class="z z2" x="268" y="24" font-size="26">z</text>
-            <text class="z z3" x="290" y="6"  font-size="30">z</text>
-        </svg>
-
-        <!-- Flying Pusheen (top-right) -->
-        <svg class="pusheen p-fly" viewBox="0 0 260 180" aria-hidden="true">
-            <!-- Wings -->
-            <ellipse class="wing-l" cx="54"  cy="70" rx="30" ry="16" fill="#fff" stroke="var(--outline)" stroke-width="3"/>
-            <ellipse class="wing-r" cx="206" cy="70" rx="30" ry="16" fill="#fff" stroke="var(--outline)" stroke-width="3"/>
-
-            <!-- Tail -->
-            <path d="M226 108 Q252 96 244 66 Q240 56 232 60 Q232 74 222 86 Q216 92 216 100 Z"
-                  fill="var(--body)" stroke="var(--outline)" stroke-width="3.5"/>
-            <rect x="234" y="70" width="10" height="3" rx="1" fill="var(--patch)"/>
-            <rect x="236" y="80" width="10" height="3" rx="1" fill="var(--patch)"/>
-
-            <!-- Body -->
-            <path d="M30 90
-                     C 30 60, 58 44, 88 44
-                     L 172 44
-                     C 202 44, 230 60, 230 90
-                     L 230 132
-                     C 230 150, 212 158, 194 158
-                     L 180 158 L 180 166 Q 180 174 172 174 Q 164 174 164 166 L 164 158
-                     L 140 158 L 140 166 Q 140 174 132 174 Q 124 174 124 166 L 124 158
-                     L 100 158 L 100 166 Q 100 174 92 174 Q 84 174 84 166 L 84 158
-                     L 66 158
-                     C 48 158, 30 150, 30 132 Z"
-                  fill="var(--body)" stroke="var(--outline)" stroke-width="3.5"/>
-
-            <!-- Ears -->
-            <path d="M66 48 L58 28 L84 44 Z"   fill="var(--body)" stroke="var(--outline)" stroke-width="3.5"/>
-            <path d="M194 48 L202 28 L176 44 Z" fill="var(--body)" stroke="var(--outline)" stroke-width="3.5"/>
-
-            <!-- Back patch -->
-            <ellipse cx="178" cy="86" rx="24" ry="16" fill="var(--patch)"/>
-
-            <!-- Head dashes -->
-            <ellipse cx="102" cy="64" rx="7" ry="2.5" fill="var(--patch)"/>
-            <ellipse cx="128" cy="58" rx="3.5" ry="2" fill="var(--patch)"/>
-            <ellipse cx="154" cy="64" rx="7" ry="2.5" fill="var(--patch)"/>
-
-            <!-- Eyes -->
-            <ellipse cx="92"  cy="94" rx="4.5" ry="6" fill="var(--outline)"/>
-            <ellipse cx="164" cy="94" rx="4.5" ry="6" fill="var(--outline)"/>
-
-            <!-- Mouth -->
-            <path d="M118 112 Q124 118 130 112 Q136 118 142 112" stroke="var(--outline)" stroke-width="2" fill="none"/>
+            <text class="z"  x="220" y="42" font-size="20">z</text>
+            <text class="z z2" x="240" y="28" font-size="24">z</text>
+            <text class="z z3" x="262" y="12" font-size="28">z</text>
         </svg>
 
         <div class="footer">nikoescobal.github.io</div>
