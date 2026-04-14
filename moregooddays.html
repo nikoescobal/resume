@@ -241,7 +241,7 @@
         <section>
             <h2>Summary</h2>
             <p class="summary">
-                AI Automation Engineer with a GTM-engineering background (AirOps Content Engineering, GTM Engineering School Cohort 3) who builds custom operational software — not just no-code flows. I ship desktop and web apps that replace recurring manual work: headless-browser scrapers, LLM-driven extraction and enrichment pipelines, and audit-logged delivery layers, all wrapped in real UIs that non-technical operators can run. Current production system is a signed Electron app used by four properties of a global hotel chain for payroll automation, plus a biweekly pre-arrival prospecting pipeline powered by Puppeteer and Claude Code. Comfortable in n8n and Zapier when they fit, but I default to custom apps — cheaper to maintain, debuggable, and not capped by a vendor's node list.
+                AI Automation Engineer with a GTM-engineering background (AirOps Content Engineering, GTM Engineering School Cohort 3) who builds custom operational software — not just no-code flows. I ship desktop and web apps that replace recurring manual work: headless-browser scrapers, LLM-driven extraction and enrichment pipelines, and audit-logged delivery layers, all wrapped in real UIs that non-technical operators can run. Current production systems include a signed Electron app used across four properties spanning multiple global hospitality brands for payroll automation, plus a biweekly pre-arrival prospecting pipeline powered by Puppeteer, Claude Code, and n8n. Fluent across the full stack — custom Electron, web, and API apps when depth and control matter; n8n and Zapier when a workflow platform is the right call. The tool follows the problem, not the other way around.
             </p>
         </section>
 
@@ -272,11 +272,11 @@
 
             <div class="project">
                 <div class="project-header">
-                    <span class="project-name">Hotel Payroll Desktop App — Arbor Lodging</span>
-                    <span class="project-tech">Electron · Puppeteer · SQLite</span>
+                    <span class="project-name">Hotel Payroll Desktop App — Multi-Brand Hospitality Operator</span>
+                    <span class="project-tech">Electron · Puppeteer · n8n · SQLite</span>
                 </div>
                 <p class="project-desc">
-                    Signed macOS/Windows Electron app used across <span class="highlight">4 properties of a global hotel chain</span>. Logs into the chain's workforce portal, scrapes time records, calculates CA break-premium violations, and writes them back — <span class="highlight">213 premium entries across 52 employees per pay cycle</span>. Encrypted credential storage, MFA dialog handling, per-property CSV preview, Chart.js analytics dashboard, and Gmail-sent manager reports. Replaced manual data entry entirely.
+                    Signed macOS/Windows Electron app used across <span class="highlight">4 properties spanning multiple global hospitality brands</span>. Logs into the workforce portal, scrapes time records, calculates CA break-premium violations, and writes them back — <span class="highlight">213 premium entries across 52 employees per pay cycle</span>. Encrypted credential storage, MFA dialog handling, per-property CSV preview, Chart.js analytics dashboard, <span class="highlight">n8n webhook integration</span> for downstream notification workflows, and Gmail-sent manager reports. Replaced manual data entry entirely.
                 </p>
             </div>
 
@@ -286,13 +286,13 @@
                     <span class="project-tech">Claude Code · Puppeteer · Clay</span>
                 </div>
                 <p class="project-desc">
-                    Biweekly pipeline for a global hotel chain property: scrapes the chain's Citrix-hosted arrivals portal (HTML5 canvas) via Puppeteer + screen capture, extracts the arrivals grid with <span class="highlight">Claude Code</span>, runs deterministic filters (length-of-stay caps, rate-plan exclusions, dedup), enriches guests via <span class="highlight">Clay</span>, and cross-references <span class="highlight">Agency360 and Lighthouse</span> data to tier each lead (corporate accounts vs. declining segments vs. flagged). Emails a tiered HTML prospect report to the sales team with a double-confirm guardrail and full audit log. The high-value pieces: reliable portal extraction and the Agency360/Lighthouse tiering — those are what turn a raw arrivals list into ranked outreach.
+                    Biweekly pipeline for a multi-brand hospitality operator: scrapes a Citrix-hosted arrivals portal (HTML5 canvas) via Puppeteer + screen capture, extracts the arrivals grid with <span class="highlight">Claude Code</span>, runs deterministic filters (length-of-stay caps, rate-plan exclusions, dedup), enriches guests via <span class="highlight">Clay</span>, and cross-references <span class="highlight">Agency360 and Lighthouse</span> data to tier each lead (corporate accounts vs. declining segments vs. flagged). Emails a tiered HTML prospect report to the sales team with a double-confirm guardrail and full audit log. The high-value pieces: reliable portal extraction and the Agency360/Lighthouse tiering — those are what turn a raw arrivals list into ranked outreach.
                 </p>
             </div>
 
             <div class="project">
                 <div class="project-header">
-                    <span class="project-name">Hotel Call Management Platform — Four Seasons client</span>
+                    <span class="project-name">Hotel Call Management Platform — Enterprise Hospitality Client</span>
                     <span class="project-tech">React · TypeScript · Node · Postgres</span>
                 </div>
                 <p class="project-desc">
@@ -312,7 +312,7 @@
                     </div>
                     <span class="job-meta">Jun 2020 — Present</span>
                 </div>
-                <div class="job-location">Remote · Hospitality &amp; SaaS clients (Arbor Lodging, Four Seasons operator, others)</div>
+                <div class="job-location">Remote · Hospitality &amp; SaaS clients (multi-brand hotel operators, enterprise hospitality platforms, others)</div>
                 <ul>
                     <li>Designed a reusable <span class="highlight">scrape → filter → enrich → tier → deliver</span> pattern now powering multiple production pipelines, all audit-logged with test/review/production send modes.</li>
                     <li>Packaged complex automation scripts as <span class="highlight">desktop apps for non-technical operators</span> — GM-level users run payroll automation themselves, review CSV previews, and send reports without engineering involvement.</li>
