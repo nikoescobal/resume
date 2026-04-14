@@ -145,8 +145,131 @@
             font-family: 'JetBrains Mono', monospace;
         }
 
+        /* ===== CATS ===== */
+        .cat {
+            position: absolute;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .cat-walker {
+            bottom: 60px;
+            left: -80px;
+            width: 90px;
+            animation: walk 18s linear infinite;
+        }
+
+        .cat-walker .body,
+        .cat-walker .head,
+        .cat-walker .ear-l,
+        .cat-walker .ear-r,
+        .cat-walker .leg-fl,
+        .cat-walker .leg-fr,
+        .cat-walker .leg-bl,
+        .cat-walker .leg-br { fill: #0f172a; }
+
+        .cat-walker .tail {
+            transform-origin: 78px 42px;
+            animation: tail-wag 1.2s ease-in-out infinite;
+        }
+
+        .cat-walker .leg-fl, .cat-walker .leg-br {
+            transform-origin: center bottom;
+            animation: step-a 0.5s ease-in-out infinite;
+        }
+        .cat-walker .leg-fr, .cat-walker .leg-bl {
+            transform-origin: center bottom;
+            animation: step-b 0.5s ease-in-out infinite;
+        }
+
+        @keyframes walk {
+            0%   { transform: translateX(0);           }
+            48%  { transform: translateX(calc(100vw + 100px)); }
+            50%  { transform: translateX(calc(100vw + 100px)) scaleX(-1); }
+            98%  { transform: translateX(0) scaleX(-1); }
+            100% { transform: translateX(0);           }
+        }
+        @keyframes tail-wag {
+            0%, 100% { transform: rotate(-8deg); }
+            50%      { transform: rotate(18deg); }
+        }
+        @keyframes step-a {
+            0%, 100% { transform: translateY(0); }
+            50%      { transform: translateY(-3px); }
+        }
+        @keyframes step-b {
+            0%, 100% { transform: translateY(-3px); }
+            50%      { transform: translateY(0); }
+        }
+
+        .cat-sleep {
+            bottom: 40px;
+            right: 48px;
+            width: 130px;
+            animation: breathe 3.4s ease-in-out infinite;
+            transform-origin: center bottom;
+        }
+
+        .cat-sleep .curl,
+        .cat-sleep .head,
+        .cat-sleep .ear-l,
+        .cat-sleep .ear-r { fill: #1e293b; }
+        .cat-sleep .belly { fill: #334155; }
+        .cat-sleep .z {
+            fill: #2563eb;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            animation: zfloat 2.4s ease-in-out infinite;
+            transform-origin: center;
+        }
+        .cat-sleep .z2 { animation-delay: -0.8s; }
+        .cat-sleep .z3 { animation-delay: -1.6s; }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1, 1); }
+            50%      { transform: scale(1.02, 0.99); }
+        }
+        @keyframes zfloat {
+            0%   { opacity: 0; transform: translate(0, 0) scale(0.7); }
+            20%  { opacity: 1; }
+            100% { opacity: 0; transform: translate(14px, -28px) scale(1.2); }
+        }
+
+        .cat-peek {
+            top: 24px;
+            right: 36px;
+            width: 70px;
+            animation: peek 6s ease-in-out infinite;
+            transform-origin: top center;
+        }
+        .cat-peek .head, .cat-peek .ear-l, .cat-peek .ear-r { fill: #0f172a; }
+        .cat-peek .eye { fill: #fff; }
+        .cat-peek .pupil {
+            fill: #0f172a;
+            animation: blink 4s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        @keyframes peek {
+            0%, 20%, 80%, 100% { transform: translateY(-90%); }
+            40%, 60%           { transform: translateY(-10%); }
+        }
+        @keyframes blink {
+            0%, 92%, 100% { transform: scaleY(1); }
+            96%           { transform: scaleY(0.1); }
+        }
+
         @media (prefers-reduced-motion: reduce) {
-            .blob, .code, .btn svg { animation: none; }
+            .blob, .code, .btn svg,
+            .cat-walker, .cat-sleep, .cat-peek,
+            .cat-walker .tail, .cat-walker .leg-fl, .cat-walker .leg-fr,
+            .cat-walker .leg-bl, .cat-walker .leg-br,
+            .cat-sleep .z { animation: none; }
+        }
+
+        @media (max-width: 640px) {
+            .cat-sleep { width: 90px; right: 20px; bottom: 24px; }
+            .cat-peek  { width: 54px; right: 16px; }
         }
     </style>
 </head>
@@ -170,6 +293,49 @@
         </a>
 
         <div class="footer">nikoescobal.github.io</div>
+
+        <!-- Peeking cat -->
+        <svg class="cat cat-peek" viewBox="0 0 60 60" aria-hidden="true">
+            <polygon class="ear-l" points="10,12 18,4 22,18" />
+            <polygon class="ear-r" points="50,12 42,4 38,18" />
+            <ellipse class="head" cx="30" cy="28" rx="22" ry="20" />
+            <circle class="eye" cx="22" cy="28" r="4" />
+            <circle class="eye" cx="38" cy="28" r="4" />
+            <circle class="pupil" cx="22" cy="28" r="2" />
+            <circle class="pupil" cx="38" cy="28" r="2" />
+            <path d="M28 36 Q30 39 32 36" stroke="#fff" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+        </svg>
+
+        <!-- Sleeping cat -->
+        <svg class="cat cat-sleep" viewBox="0 0 140 80" aria-hidden="true">
+            <ellipse class="curl" cx="70" cy="58" rx="58" ry="18" />
+            <ellipse class="belly" cx="70" cy="62" rx="46" ry="10" />
+            <polygon class="ear-l" points="28,44 24,32 36,40" />
+            <polygon class="ear-r" points="44,38 44,26 54,36" />
+            <ellipse class="head" cx="40" cy="48" rx="16" ry="13" />
+            <path d="M34 48 Q36 50 38 48" stroke="#fff" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+            <path d="M42 48 Q44 50 46 48" stroke="#fff" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+            <path d="M38 54 Q40 56 42 54" stroke="#fff" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <path class="tail-curl" d="M120 58 Q138 50 126 40" stroke="#1e293b" stroke-width="12" fill="none" stroke-linecap="round"/>
+            <text class="z"  x="62" y="28" font-size="14">z</text>
+            <text class="z z2" x="74" y="22" font-size="16">z</text>
+            <text class="z z3" x="86" y="16" font-size="18">z</text>
+        </svg>
+
+        <!-- Walking cat -->
+        <svg class="cat cat-walker" viewBox="0 0 100 60" aria-hidden="true">
+            <path class="tail" d="M78 42 Q96 36 92 20" stroke="#0f172a" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <ellipse class="body" cx="48" cy="38" rx="28" ry="12" />
+            <circle class="head" cx="22" cy="30" r="12" />
+            <polygon class="ear-l" points="12,22 10,10 20,18" />
+            <polygon class="ear-r" points="30,22 32,10 22,18" />
+            <circle cx="18" cy="30" r="1.6" fill="#fff" />
+            <circle cx="26" cy="30" r="1.6" fill="#fff" />
+            <rect class="leg-fl" x="28" y="46" width="4" height="10" rx="1.5" />
+            <rect class="leg-fr" x="38" y="46" width="4" height="10" rx="1.5" />
+            <rect class="leg-bl" x="60" y="46" width="4" height="10" rx="1.5" />
+            <rect class="leg-br" x="70" y="46" width="4" height="10" rx="1.5" />
+        </svg>
     </div>
 
     <script>
