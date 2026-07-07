@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikolas Escobal — AI-Integrated Software Engineer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #0f172a;
+            --secondary: #334155;
+            --accent: #2563eb;
+            --accent-light: #dbeafe;
+            --border: #e2e8f0;
+            --bg: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --success: #059669;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            font-size: 11px;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .page {
+            max-width: 8.5in;
+            min-height: 11in;
+            margin: 0 auto;
+            padding: 0.45in 0.5in;
+        }
+
+        .download-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+            transition: background 0.2s, box-shadow 0.2s;
+            z-index: 1000;
+        }
+
+        .download-btn:hover {
+            background: #1d4ed8;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+        }
+
+        .download-btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+        @media print {
+            body { background: white; }
+            .page { padding: 0.35in 0.45in; max-width: none; min-height: auto; }
+            .download-btn { display: none; }
+        }
+
+        header {
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            margin-bottom: 2px;
+        }
+
+        .title-role {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+        }
+
+        .contact-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 4px 14px;
+            font-size: 10.5px;
+            color: var(--secondary);
+        }
+
+        .contact-row a { color: var(--accent); text-decoration: none; }
+        .contact-row a:hover { text-decoration: underline; }
+        .divider { color: var(--border); }
+
+        section { margin-bottom: 9px; }
+
+        h2 {
+            font-size: 11.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--primary);
+            border-bottom: 1.5px solid var(--border);
+            padding-bottom: 3px;
+            margin-bottom: 7px;
+        }
+
+        .summary { font-size: 10.5px; color: var(--secondary); line-height: 1.55; }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3px 20px;
+            font-size: 10.5px;
+        }
+
+        .skill-category { display: flex; gap: 6px; }
+        .skill-label { font-weight: 600; color: var(--primary); white-space: nowrap; min-width: fit-content; }
+        .skill-items { color: var(--secondary); }
+
+        .job { margin-bottom: 7px; }
+        .job:last-child { margin-bottom: 0; }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1px;
+        }
+
+        .job-title-line { display: flex; align-items: baseline; gap: 6px; }
+        .job-title { font-weight: 700; font-size: 11px; color: var(--primary); }
+        .job-company { font-weight: 500; color: var(--secondary); font-size: 10.5px; }
+        .job-meta { font-size: 10px; color: var(--text-light); white-space: nowrap; }
+        .job-location { font-size: 10px; color: var(--text-light); margin-bottom: 3px; }
+
+        ul { padding-left: 15px; margin: 0; }
+        li { font-size: 10.5px; color: var(--secondary); margin-bottom: 1.5px; line-height: 1.45; }
+        li::marker { color: var(--accent); }
+
+        .highlight { font-weight: 600; color: var(--primary); }
+
+        .project { margin-bottom: 6px; }
+        .project:last-child { margin-bottom: 0; }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .project-name { font-weight: 700; font-size: 11px; color: var(--primary); }
+
+        .project-tech {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            color: var(--accent);
+            background: var(--accent-light);
+            padding: 1px 6px;
+            border-radius: 3px;
+            white-space: nowrap;
+        }
+
+        .project-desc { font-size: 10.5px; color: var(--secondary); margin-top: 1px; line-height: 1.45; }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 4px 12px;
+        }
+
+        .cert-item { font-size: 10.5px; }
+        .cert-name { font-weight: 600; color: var(--primary); }
+        .cert-org { color: var(--text-light); font-size: 10px; }
+
+        .edu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2px;
+        }
+
+        .edu-school { font-weight: 600; color: var(--primary); font-size: 10.5px; }
+        .edu-degree { color: var(--secondary); font-size: 10.5px; }
+        .edu-date { font-size: 10px; color: var(--text-light); }
+    </style>
+</head>
+<body>
+    <button class="download-btn" id="downloadBtn">
+        <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zm7-18L5.33 9h3.17v6h5v-6h3.17L12 2z"/></svg>
+        Download CV
+    </button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js"></script>
+    <script>
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            var btn = this;
+            btn.style.display = 'none';
+            html2pdf()
+                .set({
+                    margin: 0,
+                    filename: 'Nikolas_Escobal_CV_Software_Engineer.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2, useCORS: true },
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                })
+                .from(document.querySelector('.page'))
+                .save()
+                .then(function() { btn.style.display = 'flex'; });
+        });
+    </script>
+    <div class="page">
+        <header>
+            <h1>Nikolas Escobal</h1>
+            <div class="title-role">AI-Integrated Software Engineer</div>
+            <div class="contact-row">
+                <span>niko.escobal@gmail.com</span>
+                <span class="divider">|</span>
+                <a href="https://github.com/nikoescobal">github.com/nikoescobal</a>
+                <span class="divider">|</span>
+                <span>Remote</span>
+            </div>
+        </header>
+
+        <section>
+            <h2>Summary</h2>
+            <p class="summary">
+                Full-stack engineer who ships production software end to end — and does it <span class="highlight">AI-integrated</span>, living in <span class="highlight">Claude Code, Codex, and Cursor</span> every day. I build and run real systems solo: LLM-driven extraction and enrichment pipelines, headless-browser automation, and full-stack web apps (<span class="highlight">React 19, Supabase, real-time voice, Stripe</span>) from schema to UI to deploy. Current production work includes a signed desktop app running payroll automation across a Hilton-brand hotel portfolio, and a full-stack call-management platform with AI call analytics for an enterprise hospitality client. Startup-native (ride-hailing co-founder), most productive async and remote with real ownership, and happiest at the bleeding edge of <span class="highlight">LLMs, ML, and web</span> — always leveling up the craft.
+            </p>
+        </section>
+
+        <section>
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <span class="skill-label">AI &amp; LLM:</span>
+                    <span class="skill-items">Claude Code, Codex, Cursor, Anthropic API, OpenAI API, agent workflows, prompt engineering, RAG, structured extraction, vision/OCR</span>
+                </div>
+                <div class="skill-category">
+                    <span class="skill-label">Full-Stack:</span>
+                    <span class="skill-items">React 19, TypeScript, Next.js, Node.js, Express, Python, Supabase, PostgreSQL, Tailwind</span>
+                </div>
+                <div class="skill-category">
+                    <span class="skill-label">Automation &amp; Data:</span>
+                    <span class="skill-items">Puppeteer, Playwright, n8n, cron/schedulers, SQLite/better-sqlite3, CSV/XLSX pipelines</span>
+                </div>
+                <div class="skill-category">
+                    <span class="skill-label">App &amp; Delivery:</span>
+                    <span class="skill-items">Electron (macOS/Windows), REST APIs, real-time (socket.io), Twilio, Stripe, Nodemailer/SMTP, audit logs</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Selected Projects</h2>
+
+            <div class="project">
+                <div class="project-header">
+                    <span class="project-name">Hotel Payroll Automation — Desktop App</span>
+                    <span class="project-tech">Electron · Puppeteer · n8n · SQLite</span>
+                </div>
+                <p class="project-desc">
+                    Signed macOS/Windows Electron app running payroll automation across <span class="highlight">four properties spanning Hilton and other global hospitality brands</span>. Logs into the workforce portal, scrapes time records, computes CA break-premium violations, and writes them back — <span class="highlight">213 premium entries across 52 employees per pay cycle</span>. Encrypted credential storage, MFA dialog handling, per-property CSV preview, Chart.js analytics, <span class="highlight">n8n webhook integration</span>, and Gmail-sent manager reports. Built and shipped solo; replaced manual data entry entirely.
+                </p>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <span class="project-name">Call-Management Platform — Enterprise Hospitality Client</span>
+                    <span class="project-tech">React 19 · Supabase · Twilio · Stripe</span>
+                </div>
+                <p class="project-desc">
+                    Full-stack SPA (React 19 + Supabase Edge Functions) with <span class="highlight">AI-powered call analytics</span> — architected schema to UI to deploy. Twilio Voice softphone, <span class="highlight">LLM transcription + intent/bucket classification</span>, guest-history retrieval, TanStack Table dashboards, Stripe billing, ExcelJS exports, and real-time via socket.io. I own the <span class="highlight">Playwright e2e + UAT suite</span> end to end.
+                </p>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <span class="project-name">Pre-Arrival Prospecting Pipeline — Hotel Sales Ops</span>
+                    <span class="project-tech">Claude Code · Puppeteer · Clay</span>
+                </div>
+                <p class="project-desc">
+                    Biweekly pipeline for a Hilton-brand hotel portfolio: scrapes a Citrix-hosted arrivals portal (HTML5 canvas) via Puppeteer + screen capture, extracts the arrivals grid with <span class="highlight">Claude Code</span>, applies deterministic filters (length-of-stay caps, rate-plan exclusions, dedup), enriches guests via <span class="highlight">Clay</span>, and cross-references Agency360 and Lighthouse data to tier each lead. Emails a ranked HTML prospect report with a double-confirm guardrail and full audit log.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Experience</h2>
+
+            <div class="job">
+                <div class="job-header">
+                    <div class="job-title-line">
+                        <span class="job-title">AI &amp; Full-Stack Engineer</span>
+                        <span class="job-company">— Freelance / Contract</span>
+                    </div>
+                    <span class="job-meta">Jun 2020 — Present</span>
+                </div>
+                <div class="job-location">Remote · Startup, SaaS &amp; hospitality clients</div>
+                <ul>
+                    <li>Ship production software solo, end to end — <span class="highlight">LLM pipelines, headless-browser automation, and full-stack web apps</span> — around a reusable <span class="highlight">scrape → filter → enrich → deliver</span> pattern now running across multiple live systems.</li>
+                    <li>AI-integrated by default: build in <span class="highlight">Claude Code, Codex, and Cursor</span> daily, wrapping complex automation in real UIs (Electron, React) that non-technical operators run themselves.</li>
+                    <li>40+ front-end, back-end, and full-stack projects across startups, SaaS, and hospitality; led international remote teams with a 95% project success rate.</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <div class="job-title-line">
+                        <span class="job-title">Full-Stack Developer</span>
+                        <span class="job-company">— <a href="https://helpjuice.com" style="color: inherit; text-decoration: none;">HelpJuice</a></span>
+                    </div>
+                    <span class="job-meta">Mar 2024 — Jun 2024</span>
+                </div>
+                <div class="job-location">Remote · U.S.</div>
+                <ul>
+                    <li>Shipped the landing page for <span class="highlight"><a href="https://wizardshot.com" style="color: inherit; text-decoration: none;">WizardShot.com</a></span> and delivered custom knowledge-base implementations for enterprise clients including <span class="highlight">monday.com and TCL</span>.</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <div class="job-title-line">
+                        <span class="job-title">Product Manager → Full-Stack Engineer</span>
+                        <span class="job-company">— <a href="https://legacynetwork.io" style="color: inherit; text-decoration: none;">Legacy Network AG</a></span>
+                    </div>
+                    <span class="job-meta">Aug 2022 — Sep 2023</span>
+                </div>
+                <div class="job-location">Remote · Switzerland</div>
+                <ul>
+                    <li>Led a full website redesign (TypeScript, React, Next.js) — <span class="highlight">90% lift in user engagement</span>, 30% more daily visits; introduced Agile + QA audits that cut bugs 40% and accelerated delivery 50%.</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <div class="job-title-line">
+                        <span class="job-title">Senior PM → Lead QA → Frontend Engineer</span>
+                        <span class="job-company">— <a href="https://aceplace.co" style="color: inherit; text-decoration: none;">AcePlace</a></span>
+                    </div>
+                    <span class="job-meta">Mar 2022 — Jan 2023</span>
+                </div>
+                <div class="job-location">Remote · Dubai</div>
+                <ul>
+                    <li>CEO's right hand on product; stood up QA from zero — documented and resolved 400+ bugs, 30% less downtime, 30% MRR saved through critical fixes.</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <div class="job-title-line">
+                        <span class="job-title">Co-Founder &amp; Head of Sales</span>
+                        <span class="job-company">— RideWave / Qwikwire</span>
+                    </div>
+                    <span class="job-meta">Jun 2015 — Mar 2020</span>
+                </div>
+                <ul>
+                    <li>Co-founded a ride-hailing startup (28K+ users, 40K+ rides, 97% satisfaction). At Qwikwire drove 40% MoM revenue growth with $2M+ annual transaction volume.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Certifications &amp; Fellowships</h2>
+            <div class="cert-grid">
+                <div class="cert-item">
+                    <div class="cert-name">AI Engineering Fellowship</div>
+                    <div class="cert-org">Headstarter</div>
+                </div>
+                <div class="cert-item">
+                    <div class="cert-name">Content Engineering Cohort (Advanced)</div>
+                    <div class="cert-org">AirOps</div>
+                </div>
+                <div class="cert-item">
+                    <div class="cert-name">GTM Engineering School</div>
+                    <div class="cert-org">Cohort 3</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Education</h2>
+            <div class="edu-item">
+                <div>
+                    <span class="edu-school">Microverse</span>
+                    <span class="edu-degree"> — Remote Full-Stack Web Development Program (1,500+ hours)</span>
+                </div>
+                <span class="edu-date">Jun 2020 — Jan 2022</span>
+            </div>
+            <div class="edu-item">
+                <div>
+                    <span class="edu-school">Ateneo de Manila University</span>
+                    <span class="edu-degree"> — AB Sociology-Anthropology</span>
+                </div>
+                <span class="edu-date">Mar 2011 — May 2015</span>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

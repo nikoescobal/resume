@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikolas Escobal — AI Program &amp; Content Operations</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #0f172a;
+            --secondary: #334155;
+            --accent: #2563eb;
+            --accent-light: #dbeafe;
+            --border: #e2e8f0;
+            --bg: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --success: #059669;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            font-size: 11px;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .page {
+            max-width: 8.5in;
+            min-height: 11in;
+            margin: 0 auto;
+            padding: 0.45in 0.5in;
+        }
+
+        .download-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+            transition: background 0.2s, box-shadow 0.2s;
+            z-index: 1000;
+        }
+
+        .download-btn:hover {
+            background: #1d4ed8;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+        }
+
+        .download-btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+        @media print {
+            body { background: white; }
+            .page { padding: 0.35in 0.45in; max-width: none; min-height: auto; }
+            .download-btn { display: none; }
+        }
+
+        header {
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            margin-bottom: 2px;
+        }
+
+        .title-role {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+        }
+
+        .contact-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 4px 14px;
+            font-size: 10.5px;
+            color: var(--secondary);
+        }
+
+        .contact-row a { color: var(--accent); text-decoration: none; }
+        .contact-row a:hover { text-decoration: underline; }
+        .divider { color: var(--border); }
+
+        section { margin-bottom: 9px; }
+
+        h2 {
+            font-size: 11.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--primary);
+            border-bottom: 1.5px solid var(--border);
+            padding-bottom: 3px;
+            margin-bottom: 7px;
+        }
+
+        .summary { font-size: 10.5px; color: var(--secondary); line-height: 1.55; }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3px 20px;
+            font-size: 10.5px;
+        }
+
+        .skill-category { display: flex; gap: 6px; }
+        .skill-label { font-weight: 600; color: var(--primary); white-space: nowrap; min-width: fit-content; }
+        .skill-items { color: var(--secondary); }
+
+        .job { margin-bottom: 7px; }
+        .job:last-child { margin-bottom: 0; }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1px;
+        }
+
+        .job-title-line { display: flex; align-items: baseline; gap: 6px; }
+        .job-title { font-weight: 700; font-size: 11px; color: var(--primary); }
+        .job-company { font-weight: 500; color: var(--secondary); font-size: 10.5px; }
+        .job-meta { font-size: 10px; color: var(--text-light); white-space: nowrap; }
+        .job-location { font-size: 10px; color: var(--text-light); margin-bottom: 3px; }
+
+        ul { padding-left: 15px; margin: 0; }
+        li { font-size: 10.5px; color: var(--secondary); margin-bottom: 1.5px; line-height: 1.45; }
+        li::marker { color: var(--accent); }
+
+        .highlight { font-weight: 600; color: var(--primary); }
+
+        .project { margin-bottom: 6px; }
+        .project:last-child { margin-bottom: 0; }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .project-name { font-weight: 700; font-size: 11px; color: var(--primary); }
+
+        .project-tech {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            color: var(--accent);
+            background: var(--accent-light);
+            padding: 1px 6px;
+            border-radius: 3px;
+            white-space: nowrap;
+        }
+
+        .project-desc { font-size: 10.5px; color: var(--secondary); margin-top: 1px; line-height: 1.45; }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 4px 12px;
+        }
+
+        .cert-item { font-size: 10.5px; }
+        .cert-name { font-weight: 600; color: var(--primary); }
+        .cert-org { color: var(--text-light); font-size: 10px; }
+
+        .edu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2px;
+        }
+
+        .edu-school { font-weight: 600; color: var(--primary); font-size: 10.5px; }
+        .edu-degree { color: var(--secondary); font-size: 10.5px; }
+        .edu-date { font-size: 10px; color: var(--text-light); }
+    </style>
+</head>
+<body>
+    <button class="download-btn" id="downloadBtn">
+        <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zm7-18L5.33 9h3.17v6h5v-6h3.17L12 2z"/></svg>
+        Download CV
+    </button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js"></script>
+    <script>
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            var btn = this;
+            btn.style.display = 'none';
+            html2pdf()
+                .set({
+                    margin: 0,
+                    filename: 'Nikolas_Escobal_CV_Program_Associate.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2, useCORS: true },
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                })
+                .from(document.querySelector('.page'))
+                .save()
+                .then(function() { btn.style.display = 'flex'; });
+        });
+    </script>
+    <div class="page">
+        <header>
+            <h1>Nikolas Escobal</h1>
+            <div class="title-role">AI Program &amp; Content Operations</div>
+            <div class="contact-row">
+                <span>niko.escobal@gmail.com</span>
+                <span class="divider">|</span>
+                <a href="https://github.com/nikoescobal">github.com/nikoescobal</a>
+                <span class="divider">|</span>
+                <span>Remote</span>
+            </div>
+        </header>
+
+        <section>
+            <h2>Summary</h2>
+            <p class="summary">
+                Operator who turns rough inputs — research notes, drafts, survey data, resources — into <span class="highlight">finished, published, well-organized output</span>. Content- and GTM-engineering background (Content Engineering Cohort at AirOps, GTM Engineering School) with a rare bonus: I can also <span class="highlight">build the tooling</span> — member marketplaces and content trackers in Webflow, Notion, and Airtable, plus AI-assisted content production in <span class="highlight">Claude Code</span>. I've owned recurring operational work end to end across product, QA, and sales — content calendars, member outreach and CRM, surveys, and quarterly reporting — shipping on time, self-directed and async. <span class="highlight">Strong writer and editor first</span>; the automation just makes the output faster and cleaner.
+            </p>
+        </section>
+
+        <section>
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <span class="skill-label">Content &amp; Writing:</span>
+                    <span class="skill-items">Articles &amp; weekly digests, editing, content calendars, AI-assisted drafting (Claude Code), publishing &amp; distribution</span>
+                </div>
+                <div class="skill-category">
+                    <span class="skill-label">No-Code &amp; Platforms:</span>
+                    <span class="skill-items">Webflow, Notion, Airtable, Zapier, n8n, Google Workspace</span>
+                </div>
+                <div class="skill-category">
+                    <span class="skill-label">Member &amp; Outreach Ops:</span>
+                    <span class="skill-items">Email campaigns, CRM, surveys &amp; follow-up, listing/response collection, community coordination</span>
+                </div>
+                <div class="skill-category">
+                    <span class="skill-label">Reporting &amp; Tooling:</span>
+                    <span class="skill-items">Quarterly report formatting, performance/engagement trackers, dashboards; custom builds (React, Supabase) when no-code isn't enough</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Selected Work</h2>
+
+            <div class="project">
+                <div class="project-header">
+                    <span class="project-name">Content Production &amp; Distribution Pipeline</span>
+                    <span class="project-tech">Claude Code · HTML · SMTP</span>
+                </div>
+                <p class="project-desc">
+                    Pipeline that turns raw source data into a <span class="highlight">formatted, ranked HTML report</span> and distributes it to a team on a biweekly cadence — with a double-confirm guardrail, <span class="highlight">test / review / production send modes</span>, and a full audit log. The same pattern generalizes to digests, newsletters, and member updates: rough input in, publish-ready output out.
+                </p>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <span class="project-name">Member Platforms &amp; Reporting Dashboards</span>
+                    <span class="project-tech">React · Supabase · Airtable</span>
+                </div>
+                <p class="project-desc">
+                    Built member-facing web platforms and analytics dashboards from schema to UI — <span class="highlight">searchable listings, engagement tracking, and exportable reports (ExcelJS)</span>. Equally comfortable delivering the same in no-code (Webflow / Notion / Airtable) when that's the faster, more maintainable call.
+                </p>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <span class="project-name">Operational Tools for Non-Technical Teams</span>
+                    <span class="project-tech">Desktop App · n8n · UAT</span>
+                </div>
+                <p class="project-desc">
+                    Packaged recurring manual workflows into tools that <span class="highlight">non-technical operators run themselves</span> — CSV previews, one-click reports, scheduled runs. I own the <span class="highlight">QA/UAT walkthroughs</span> and trackers that keep them reliable release after release.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Experience</h2>
+
+            <div class="job">
+                <div class="job-header">
+                    <div class="job-title-line">
+                        <span class="job-title">AI Program &amp; Content Operations</span>
+                        <span class="job-company">— Freelance / Contract</span>
+                    </div>
+                    <span class="job-meta">Jun 2020 — Present</span>
+                </div>
+                <div class="job-location">Remote · Content, GTM &amp; operations for startup and SaaS teams</div>
+                <ul>
+                    <li>Turn rough inputs — research, notes, data — into <span class="highlight">finished, published output</span>: articles, ranked reports, and member-ready deliverables, produced AI-assisted in Claude Code.</li>
+                    <li>Own recurring operational work end to end — <span class="highlight">content calendars, distribution, surveys, CRM/outreach, and reporting</span> — self-directed and async across multiple concurrent clients.</li>
+                    <li>Build the supporting tooling when needed: member platforms, trackers, and dashboards in both <span class="highlight">no-code (Webflow/Notion/Airtable)</span> and custom code.</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <div class="job-title-line">
+                        <span class="job-title">Full-Stack Developer (Knowledge Base)</span>
+                        <span class="job-company">— <a href="https://helpjuice.com" style="color: inherit; text-decoration: none;">HelpJuice</a></span>
+                    </div>
+                    <span class="job-meta">Mar 2024 — Jun 2024</span>
+                </div>
+                <div class="job-location">Remote · U.S.</div>
+                <ul>
+                    <li>Delivered custom <span class="highlight">knowledge-base and content implementations</span> for enterprise clients including <span class="highlight">monday.com and TCL</span>, and shipped the landing page for <span class="highlight"><a href="https://wizardshot.com" style="color: inherit; text-decoration: none;">WizardShot.com</a></span>.</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <div class="job-title-line">
+                        <span class="job-title">Product Manager → Operations</span>
+                        <span class="job-company">— <a href="https://legacynetwork.io" style="color: inherit; text-decoration: none;">Legacy Network AG</a></span>
+                    </div>
+                    <span class="job-meta">Aug 2022 — Sep 2023</span>
+                </div>
+                <div class="job-location">Remote · Switzerland</div>
+                <ul>
+                    <li>Owned a full website redesign and rollout — <span class="highlight">90% lift in user engagement</span>, 30% more daily visits; introduced Agile + QA audits that cut bugs 40% and accelerated delivery 50%.</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <div class="job-title-line">
+                        <span class="job-title">Senior PM → Lead QA</span>
+                        <span class="job-company">— <a href="https://aceplace.co" style="color: inherit; text-decoration: none;">AcePlace</a></span>
+                    </div>
+                    <span class="job-meta">Mar 2022 — Jan 2023</span>
+                </div>
+                <div class="job-location">Remote · Dubai</div>
+                <ul>
+                    <li>CEO's right hand on product; stood up QA and operations from zero — <span class="highlight">documented and resolved 400+ issues</span> against trackers, 30% less downtime, 30% MRR saved.</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <div class="job-title-line">
+                        <span class="job-title">Co-Founder &amp; Head of Sales</span>
+                        <span class="job-company">— RideWave / Qwikwire</span>
+                    </div>
+                    <span class="job-meta">Jun 2015 — Mar 2020</span>
+                </div>
+                <ul>
+                    <li>Co-founded a ride-hailing startup (28K+ users, 40K+ rides, 97% satisfaction). Ran <span class="highlight">outreach, CRM, and partner communications</span>; at Qwikwire drove 40% MoM revenue growth with $2M+ annual transaction volume.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Certifications &amp; Fellowships</h2>
+            <div class="cert-grid">
+                <div class="cert-item">
+                    <div class="cert-name">Content Engineering Cohort (Advanced)</div>
+                    <div class="cert-org">AirOps</div>
+                </div>
+                <div class="cert-item">
+                    <div class="cert-name">GTM Engineering School</div>
+                    <div class="cert-org">Cohort 3</div>
+                </div>
+                <div class="cert-item">
+                    <div class="cert-name">AI Engineering Fellowship</div>
+                    <div class="cert-org">Headstarter</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Education</h2>
+            <div class="edu-item">
+                <div>
+                    <span class="edu-school">Microverse</span>
+                    <span class="edu-degree"> — Remote Full-Stack Web Development Program (1,500+ hours)</span>
+                </div>
+                <span class="edu-date">Jun 2020 — Jan 2022</span>
+            </div>
+            <div class="edu-item">
+                <div>
+                    <span class="edu-school">Ateneo de Manila University</span>
+                    <span class="edu-degree"> — AB Sociology-Anthropology</span>
+                </div>
+                <span class="edu-date">Mar 2011 — May 2015</span>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
