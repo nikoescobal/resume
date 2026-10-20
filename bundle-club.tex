@@ -1,0 +1,65 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=0.6in]{geometry}
+\usepackage{fontspec}
+\setmainfont{Arial}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{174C85}
+\usepackage[colorlinks=true,urlcolor=accent]{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\emergencystretch}{2em}
+\linespread{1.0}
+\titleformat{\section}{\fontsize{10.5}{12}\selectfont\bfseries}{}{0pt}{}[\vspace{-4pt}\color{gray}\titlerule]
+\titlespacing*{\section}{0pt}{2pt}{3pt}
+\setlist[itemize]{leftmargin=13pt,label=\textbullet,itemsep=1pt,topsep=2pt,parsep=0pt,partopsep=0pt}
+\newcommand{\job}[3]{\par\vspace{1pt}\textbf{#1}\hfill #3\par\textit{#2}\par}
+\begin{document}
+\begin{center}
+{\fontsize{22}{25}\selectfont\bfseries Nikolas Escobal}\par
+\vspace{2pt}{\fontsize{10.5}{12}\selectfont\color{accent}\bfseries SOFTWARE ENGINEER}\par
+\vspace{2pt}{\fontsize{10.5}{12}\selectfont Remote\quad|\quad\href{mailto:niko.escobal@gmail.com}{niko.escobal@gmail.com}\quad|\quad\href{https://github.com/nikoescobal}{github.com/nikoescobal}}
+\end{center}
+\vspace{-7pt}\hrule height .6pt
+\section{SUMMARY}
+Full-stack software engineer with product management and startup experience. AI-first: direct coding agents through planning, implementation, review, and verification. Clojure enthusiast influenced by Rich Hickey's Simple Made Easy: separate concerns, explicit dependencies, simplicity over convenience.
+\section{EXPERIENCE}
+\par\vspace{5pt}\textbf{Full-Stack Software Engineer - Freelance / Contract}\hfill Jun 2020 - Present\par
+Delivered 40+ frontend, backend, and full-stack projects.\par
+\textit{Selected engagements:}\par
+\par\vspace{1pt}\textbf{Win Labs}\hfill Mar 2026 - Present\par
+\begin{itemize}
+\item Work directly with Win Labs' founder, a MasterClass founding engineer and former Director of Engineering, on software for a hotel operator across five Hilton-branded hotels.
+\item \textbf{Arrival Intelligence:} Built a full-stack GTM intelligence workflow that turns hotel records into enriched prospects for sales review. Added session recovery, enrichment controls, and delivery tracking.
+\item \textbf{Timesheet Management:} Built time-record processing and break-premium rules, with browser readback to verify changes, employee-level error reporting, and report review and approval.
+\end{itemize}
+\par\vspace{1pt}\textbf{CleverConsult.ai}\hfill Jul 2026 - Present\par
+\begin{itemize}
+\item Work directly with the CTO on an AI platform that turns referral documents, recordings, and questionnaires into specialist clinical notes.
+\item Improved template previews, pipeline progress tracking, and source citations; fixed database connection and provider concurrency issues.
+\end{itemize}
+\par\vspace{1pt}\textbf{MoreGoodDays}\hfill May - Sep 2026\par
+\begin{itemize}
+\item Moved reporting for five health programs from a laptop to scheduled cloud processing, with delivery checks and failure alerts.
+\item Integrated ClickUp, Intercom, and Aircall to synchronize client records, detect duplicates, and identify callers.
+\item Built and piloted a unified client dashboard for appointments, tasks, and communication history.
+\end{itemize}
+\job{Helpjuice}{Frontend Software Engineer}{Mar - Jun 2024}
+Built the Wizardshot React landing page; customized LiquidJS/jQuery knowledge bases and fixed bugs.
+\job{Legacy Network AG}{Engineering, then Product Management}{Aug 2022 - Sep 2023}
+Built React/Next.js web and community features; moved to product management in March 2023.
+\job{Aceplace}{Frontend, QA \& Product}{Mar 2022 - Feb 2023}
+Built host dashboard features. Established the QA function from scratch; helped the team document and resolve 400+ bugs.
+\section{SKILLS}
+\textbf{Frontend:} JavaScript, TypeScript, React, Next.js, HTML, CSS\par
+\textbf{Backend:} Clojure/ClojureScript, Python/Django, Node.js/Bun, Ruby on Rails, PostgreSQL\par
+\textbf{Tools:} Git, Playwright, Puppeteer, API integrations\par
+\textbf{Agentic engineering:} Claude Code, Codex, context engineering, agent orchestration, automated verification
+\section{EDUCATION}
+\textbf{Microverse} - Full-Stack Web Development\hfill Jun 2020 - Jan 2022\par
+\textbf{Ateneo de Manila University} - AB Sociology-Anthropology\hfill Mar 2011 - May 2015
+\section{TRAINING}
+AI Engineering Fellowship (Headstarter); Content Engineering Cohort (Advanced) (AirOps); GTM Engineering School (Cohort 3).
+\end{document}
