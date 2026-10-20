@@ -13,9 +13,9 @@ Delivered 40+ frontend, backend, and full-stack projects.
 
 Selected engagements:
 
-#### Win Labs | Mar 2026 - Present
-- Work directly with Win Labs' founder, a MasterClass founding engineer and former Director of Engineering, on software for a hotel operator across five Hilton-branded hotels.
-- **Arrival Intelligence:** Built a full-stack GTM intelligence workflow that turns hotel records into enriched prospects for sales review. Added session recovery, enrichment controls, and delivery tracking.
+#### [Win Labs](https://winlabs.dev/) | Mar 2026 - Present
+- Work directly with Win Labs' founder, a MasterClass founding engineer and former Director of Engineering. Build software for Arbor Lodging, a 30+ hotel operator with operations in the U.S. and Mexico under brands including Hilton, Marriott, Hyatt, and IHG.
+- **Arrival Intelligence:** Built a full-stack GTM intelligence workflow for five hotels that turns hotel records into enriched prospects for sales review. Added session recovery, enrichment controls, and delivery tracking.
 - **Timesheet Management:** Built time-record processing and break-premium rules, with browser readback to verify changes, employee-level error reporting, and report review and approval.
 
 #### CleverConsult.ai | Jul 2026 - Present
